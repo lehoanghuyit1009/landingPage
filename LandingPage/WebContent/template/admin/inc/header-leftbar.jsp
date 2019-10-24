@@ -121,7 +121,7 @@
        <%--  <% } %>
         <% if (accessUsers) { %> --%>
         <li class="nav-item" id="users">
-          <a class="nav-link" href="<%=request.getContextPath()%>/admin/users">
+          <a class="nav-link" href="<%=request.getContextPath()%>/admin/user/index">
             <i class="far fa-user"></i>
             <span>Users</span></a>
         </li>

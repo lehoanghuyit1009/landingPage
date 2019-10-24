@@ -40,4 +40,20 @@
 		<servlet-name>AdminContactIndexController</servlet-name>
 		<url-pattern>/admin/contact/index</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>AdminUserIndexController</servlet-name>
+		<servlet-class>controller.AdminUserIndexController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdminUserIndexController</servlet-name>
+		<url-pattern>/admin/user/index</url-pattern>
+	</servlet-mapping>
+		<servlet>
+		<servlet-name>AdminUserAddController</servlet-name>
+		<servlet-class>controller.AdminUserAddController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdminUserAddController</servlet-name>
+		<url-pattern>/admin/user/add</url-pattern>
+	</servlet-mapping>
 </web-app>

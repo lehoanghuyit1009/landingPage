@@ -70,7 +70,7 @@ public class User {
 		// TODO Auto-generated constructor stub
 	}
 
-	public User(int id, String username, String fullname, String password, String email, Role role, int enable) {
+	public User(int id, String username, String fullname, String password, String email, int enable, Role role) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -80,6 +80,8 @@ public class User {
 		this.role = role;
 		this.enable = enable;
 	}
+
+	
 
 	@Override
 	public String toString() {
