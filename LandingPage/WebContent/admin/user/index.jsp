@@ -105,15 +105,21 @@
 					                    <td class=""><%=itemUser.getEmail()%></td>
 					                    <td class=""><%=itemUser.getRole().getName()%></td>
 					                    <td class="status">
+
 					                    	<% if (!itemUser.getUsername().equals("admin")) { %>
-					                   		<span class="status-user-<%=itemUser.getId()%> <%if(itemUser.getEnable() == 1) out.print("active");%>" onclick='changeStatusUser(<%=itemUser.getId()%>, <%=itemUser.getEnable()%>)'>Active</span>
+					                   			<a style="	background-color: <%=itemUser.getColorEnable()%>;
+												color: white;
+												font-size: 12px;
+												padding: 4px 8px;
+												border-radius: 3px;">
+								          		<i class="<%=itemUser.getIconEnable()%>"></i><%=itemUser.getNameOfEnable()%></a>
 					                   		<% } %>
 					                    </td>
 					                    <td>
 											<a href="<%=request.getContextPath()%>/admin/user/edit?page=<%=currentPage%>&id=<%=itemUser.getId()%>" class="btn btn-info btn-sm">
 								          		<i class="fas fa-edit"></i>Edit</a>
 								          	<% if (!itemUser.getUsername().equals("admin")) { %>
-											<a href="<%=request.getContextPath()%>/admin/user/del?page=<%=currentPage%>&id=<%=itemUser.getId()%>" class="btn btn-danger btn-sm"
+											<a href="<%=request.getContextPath()%>/admin/user/delete?id=<%=itemUser.getId()%>" class="btn btn-danger btn-sm"
 												onclick="return confirm('Are you want to delete <%=itemUser.getUsername()%>?')">
 								          		<i class="fas fa-trash-alt"></i>Delete</a>
 								          	<%} %>

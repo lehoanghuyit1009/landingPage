@@ -64,6 +64,34 @@ public class User {
 	public void setEnable(int enable) {
 		this.enable = enable;
 	}
+	
+	public void changeEnable() {
+		int i = getEnable();
+		if (i==1) setEnable(0);
+		if (i==0) setEnable(1);
+	}
+	
+	public String getNameOfEnable() {
+		int i = getEnable();
+		if (i==1) return "Active";
+		else return "Inactive";
+	}
+	
+	public String getColorEnable() {
+		int i = getEnable();
+		String content;
+		if (i==1) content = "green";
+		else content = "red";
+		return content;
+	}
+	
+	public String getIconEnable() {
+		int i = getEnable();
+		String content;
+		if (i==1) content = "fas fa-check";
+		else content = "fas fa-times";
+		return content;
+	}
 
 	public User() {
 		super();

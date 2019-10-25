@@ -418,9 +418,24 @@ td.status span {
 td.status span.active {
 	background-color: green;
 	color: white;
+	font-size: 12px;
+	padding: 2px 8px;
 }
 
-/* css cho nut active có lề đẹp chút */
+active {
+	background-color: green;
+	color: white;
+	font-size: 12px;
+	padding: 2px 8px;
+}
+
+inactive {
+	background-color: red;
+	color: white;
+	font-size: 12px;
+	padding: 2px 8px;
+}
+
 td.status {
 	position: relative;
 }

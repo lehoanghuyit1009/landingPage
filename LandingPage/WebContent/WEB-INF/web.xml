@@ -48,7 +48,7 @@
 		<servlet-name>AdminUserIndexController</servlet-name>
 		<url-pattern>/admin/user/index</url-pattern>
 	</servlet-mapping>
-		<servlet>
+	<servlet>
 		<servlet-name>AdminUserAddController</servlet-name>
 		<servlet-class>controller.AdminUserAddController</servlet-class>
 	</servlet>
