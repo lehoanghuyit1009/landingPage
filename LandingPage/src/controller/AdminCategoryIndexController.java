@@ -28,6 +28,9 @@ public class AdminCategoryIndexController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html");
 		int numberOfItems = categoryDAO.countItems();
 		if (numberOfItems > 0) {
 			int numberOfPages = (int) Math.ceil((float) numberOfItems / DefineUtil.NUMBER_PER_PAGE);

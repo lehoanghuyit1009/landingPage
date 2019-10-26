@@ -15,16 +15,16 @@
             <li class="breadcrumb-item">
               <a href="<%=request.getContextPath()%>/admin/categories">Categories</a>
             </li>
-            <li class="breadcrumb-item active">Add</li>
+            <li class="breadcrumb-item active">Edit</li>
           </ol>
 
           <!-- DataTables Example -->
           <div class="card mb-3">
             <div class="card-header">
               <i class="fas fa-table"></i>
-              Add A Category
+              Edit A Category
             </div>
-            <div id="category-exist">
+            <div id="category-exist" value="h test">
             <%
             	String msg = request.getParameter("msg");
             	if ("0".equals(msg)) {
@@ -33,13 +33,24 @@
             %>
             </div>
             <div class="card-body">
-	          <form action="<%=request.getContextPath()+"/admin/category/add" %>" method="post">
+	          <form action="<%=request.getContextPath()+"/admin/category/edit" %>" method="post">
 	            <div class="form-group">
+	            
+	             <%
+	            	Category cat = (Category) request.getAttribute("category");
+	                int idcat = 0;
+	                String name = "";
+	                if (cat != null) {
+	                	idcat= cat.getParentCategoryId();
+	                	name = cat.getName();
+	                }
+	                
+	              %>
 	              <div class="form-label-group">
-	                <input type="text" name="name" value="<%-- <%if(username != null) out.print(username);%> --%>" id="name" class="form-control"
-	                 	 pattern=".{3,32}" title="Category name from 3 to 32 letter" 
+	                <input type="text" name="name" value="<%=name %>" id="inputname" class="form-control"
+	                 	 placeholder="Category" pattern=".{3,32}" title="Category name from 3 to 32 letter" 
 	                 	maxlength="32" required autofocus="autofocus" />
-	              <!--   <label for="name">Category</label> -->
+	                <label for="name">Category</label> 
 	              </div>
 	            </div>
 	            <%
@@ -52,7 +63,7 @@
 	            <div class="form-group d-inline-block">
 	            	<button type="submit" id="submit" class="btn btn-primary" name="submit">
 	            		<i class="fas fa-plus"></i>
-	            		Add
+	            		Edit
 	            	</button>
 	            </div>
 	          </form>
@@ -66,7 +77,7 @@
 		<%@ include file="/template/admin/inc/footer.jsp" %>
         <%@ include file="/template/admin/inc/script.jsp" %>
         <script>
-		$('title').html('Category Add');
+		$('title').html('Category Edit');
 		</script>
         <!-- code script here -->
         <script type="text/javascript">document.getElementById('categories').classList.add('active');</script>

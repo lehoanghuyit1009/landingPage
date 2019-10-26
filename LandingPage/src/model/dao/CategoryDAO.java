@@ -8,7 +8,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import model.bean.Category;
+import model.bean.News;
 import util.DBConnection;
+
 import util.DefineUtil;
 
 public class CategoryDAO {
@@ -20,7 +22,8 @@ public class CategoryDAO {
 	public ArrayList<Category> getListCategory(int offset) {
 		ArrayList<Category> listCat = new ArrayList<>();
 		conn = DBConnection.getConnection();
-		String sql = "select * from category LIMIT ?,?  ORDER  BY id DESC";
+		
+		String sql = "select * from category  ORDER  BY id ASC  LIMIT ?,?";
 		try {
 			pst = conn.prepareStatement(sql);
 			pst.setInt(1, offset);
@@ -40,7 +43,7 @@ public class CategoryDAO {
 	public int countItems() {
 		int result = 0;
 		conn = DBConnection.getConnection();
-		String sql = "SELECT COUNT(*) as count FROM category";
+		String sql = "SELECT COUNT(*) AS count FROM category";
 		try {
 			st = conn.createStatement();
 			rs = st.executeQuery(sql);
@@ -74,4 +77,179 @@ public class CategoryDAO {
 		}
 		return result;
 	}
+	
+	public int update(String name,int id) {
+		conn = DBConnection.getConnection();
+		String sql = "UPDATE category SET name=? WHERE id=?";
+		int result = 0;
+		try {
+			pst = conn.prepareStatement(sql);
+			pst.setString(1, name);
+			pst.setInt(2, id);
+
+			result = pst.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBConnection.close(pst, conn);
+		}
+		return result;
+	}
+	
+	public int countItemsAll() {
+		int result = 0;
+		conn = DBConnection.getConnection();
+		String sql = "SELECT COUNT(*) AS count FROM category";
+		try {
+			pst = conn.prepareStatement(sql);
+			rs = pst.executeQuery();
+			if (rs.next()) {
+				result = rs.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnection.close(rs, pst, conn);
+		}
+		return result;
+	}
+	
+	public ArrayList<Category> getItemsAllAndSort() {
+		return this.getItemsAll(0);
+	}
+	
+	public ArrayList<Category> getItemsAll(int parentId) {
+		ArrayList<Category> result = new ArrayList<>();
+		ArrayList<Category> list = this.getItemsByParentId(parentId);
+		for (Category item : list) {
+			result.add(item);
+			result.addAll(this.getItemsAll(item.getId()));
+		}
+		return result;
+	}
+	
+	public ArrayList<Category> getItemsByParentId(int id) {
+		ArrayList<Category> listCategories = new ArrayList<>();
+		conn = DBConnection.getConnection();
+		String sql = "SELECT * FROM category WHERE parent_id = ?";
+		try {
+			pst = conn.prepareStatement(sql);
+			pst.setInt(1, id);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				listCategories.add(new Category(rs.getInt("id"), rs.getString("name"), rs.getInt("parent_id")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnection.close(rs, pst, conn);
+		}
+		return listCategories;
+	}
+	
+	public Category getItem(int id) {
+		Category category = null;
+		conn = DBConnection.getConnection();
+		String sql = "SELECT * FROM category WHERE id = ?";
+		try {
+			pst = conn.prepareStatement(sql);
+			pst.setInt(1, id);
+			rs = pst.executeQuery();
+			if (rs.next()) {
+				category = new Category(rs.getInt("id"), rs.getString("name"), rs.getInt("parent_id"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnection.close(rs, pst, conn);
+		}
+		return category;
+	}
+	
+	public int deleteParentItemAndSubItems(int parentId) {
+		int result = 0;
+		ArrayList<Category> listCategories = this.getItemsByParentId(parentId);
+		for (Category category : listCategories) {
+			result += this.deleteParentItemAndSubItems(category.getId());
+		}
+		result += this.delItem(parentId);
+		return result;
+	}
+	
+	private int delItem(int id) {
+		int result = 0;
+		conn = DBConnection.getConnection();
+		String sql = "DELETE FROM category WHERE id = ?";
+		try {
+			pst = conn.prepareStatement(sql);
+			pst.setInt(1, id);
+			result = pst.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnection.close(pst, conn);
+		}
+		return result;
+	}
+	
+	public ArrayList<News> getItemsByCatId(int id) {
+		ArrayList<News> listNewses = new ArrayList<>();
+		conn = DBConnection.getConnection();
+		String sql = "SELECT * FROM news  WHERE category = ? ORDER BY id ASC";
+		try {
+			pst = conn.prepareStatement(sql);
+			pst.setInt(1, id);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				listNewses.add(new News(rs.getInt("id"), rs.getString("name"), rs.getString("description"),
+						rs.getString("detail"), rs.getTimestamp("date_create"), rs.getInt("created_by"),
+						rs.getString("picture"), null, rs.getInt("active")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnection.close(rs, pst, conn);
+		}
+		return listNewses;
+	}
+	
+	public int deleteItemByCatId(int id) {
+		int result = 0;
+		conn = DBConnection.getConnection();
+		String sql = "DELETE FROM news WHERE category = ?";
+		try {
+			pst = conn.prepareStatement(sql);
+			pst.setInt(1, id);
+			result = pst.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnection.close(pst, conn);
+		}
+		return result;
+	}
+	
+	public int deleteItemByNewsId(int id) {
+		int result = 0;
+		conn = DBConnection.getConnection();
+		String sql = "DELETE FROM comment WHERE news_id = ?";
+		try {
+			pst = conn.prepareStatement(sql);
+			pst.setInt(1, id);
+			result = pst.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnection.close(pst, conn);
+		}
+		return result;
+	}
+	
+
 }
+
+

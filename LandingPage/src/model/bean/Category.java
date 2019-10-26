@@ -3,13 +3,17 @@ package model.bean;
 public class Category {
 	private int id;
 	private String name;
-
+	private int parentCategoryId;
+	
+	public int getParentCategoryId() {
+		return parentCategoryId;
+	}
+	
 	public int getId() {
 		return id;
 	}
 
 	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getName() {
@@ -28,6 +32,13 @@ public class Category {
 
 	public Category() {
 		super();
+	}
+	
+	public Category(int id, String name, int parentCategoryId) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.parentCategoryId = parentCategoryId;
 	}
 
 	@Override

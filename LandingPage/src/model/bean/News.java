@@ -10,9 +10,11 @@ public class News {
 	private String address;
 	private String picture;
 	private int views;
+	private int createBy;
 	private double cost;
 	private Timestamp dateCreate;
 	private Category category;
+	private int active;
 	private double area;
 
 	public int getId() {
@@ -122,6 +124,20 @@ public class News {
 	public News() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	
+	public News(int id, String name, String description, String detail, Timestamp dateCreate, int createdby, String picture,
+			Category category, int active) {
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.detail = detail;
+		this.dateCreate = dateCreate;
+		this.createBy = createBy;
+		this.picture = picture;
+		this.category = category;
+		this.active = active;
 	}
 
 	@Override

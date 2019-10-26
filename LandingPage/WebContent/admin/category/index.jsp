@@ -1,5 +1,4 @@
 <%@page import="util.DefineUtil"%>
-<%@page import="sun.misc.MessageUtils"%>
 <%@page import="model.bean.Category"%>
 <%@page import="model.bean.User"%>
 <%@page import="model.bean.News"%>
@@ -96,7 +95,7 @@
 					                    	<div>
 											<a href="<%=request.getContextPath()%>/admin/category/edit?page=<%=currentPage%>&id=<%=itemCategory.getId()%>" class="btn btn-info">
 								          		<i class="fas fa-edit"></i>Edit</a>
-											<a href="<%=request.getContextPath()%>/admin/category/del?page=<%=currentPage%>&id=<%=itemCategory.getId()%>" class="btn btn-danger"
+											<a href="<%=request.getContextPath()%>/admin/category/delete?page=<%=currentPage%>&id=<%=itemCategory.getId()%>" class="btn btn-danger"
 												onclick="return confirm('Are you want to delete <%=itemCategory.getName()%>?')">
 								          		<i class="fas fa-trash-alt"></i>Delete</a>
 								          	</div>
@@ -134,7 +133,7 @@
                				<div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
                					<ul class="pagination">
 	               					<%
-	                              		String href = request.getContextPath() + "/admin/categories?page=";
+	                              		String href = request.getContextPath() + "/admin/category/index?page=";
 	                              	%>
 	                              	<!-- Xử lí nut previous -->
                						<li class="paginate_button page-item previous <%if(currentPage == 1) out.print("disabled");%>" id="dataTable_previous">
