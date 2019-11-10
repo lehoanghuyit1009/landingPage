@@ -52,7 +52,7 @@
                   </div>
                   <div class="mr-5"><%-- <%=countCategory %> --%>11 Main Categories!</div>
                 </div>
-                <a class="card-footer text-white clearfix small z-1" href="<%=request.getContextPath()%>/admin/categories">
+                <a class="card-footer text-white clearfix small z-1" href="<%=request.getContextPath()%>/admin/category/index">
                   <span class="float-left">View Details</span>
                   <span class="float-right">
                     <i class="fas fa-angle-right"></i>
@@ -96,14 +96,13 @@
                 </a>
               </div>
             </div>
-          <%--   <%} %> --%>
             <div class="col-xl-3 col-sm-6 mb-3">
               <div class="card text-white bg-info o-hidden h-100">
                 <div class="card-body">
                   <div class="card-body-icon">
-                    <i class="fas fa-home"></i>
+                    <i class="fas fa-phone"></i>
                   </div>
-                  <div class="mr-5">itsontran.com</div>
+                  <div class="mr-5">11 Contacts</div>
                 </div>
                 <a class="card-footer text-white clearfix small z-1" target="_blank" href="<%=request.getContextPath()%>/">
                   <span class="float-left">Go to page</span>
@@ -113,12 +112,29 @@
                 </a>
               </div>
             </div>
+            <div class="col-xl-3 col-sm-6 mb-3">
+              <div class="card text-white bg-dark o-hidden h-100">
+                <div class="card-body">
+                  <div class="card-body-icon">
+                    <i class="fas fa-comment"></i>
+                  </div>
+                  <div class="mr-5">11 Comments</div>
+                </div>
+                <a class="card-footer text-white clearfix small z-1" target="_blank" href="<%=request.getContextPath()%>/admin/comment/index">
+                  <span class="float-left">Go to page</span>
+                  <span class="float-right">
+                    <i class="fas fa-angle-right"></i>
+                  </span>
+                </a>
+              </div>
+            </div>
+          <%--   <%} %> --%>
         </div>
         <!-- /.container-fluid -->
         <%@ include file="/template/admin/inc/footer.jsp" %>
         <%@ include file="/template/admin/inc/script.jsp" %>
 		<script>
-		$('title').html('Dashboard');
+		$('title').html('landingpage.com');
 		</script>
         
         <!-- code script here -->

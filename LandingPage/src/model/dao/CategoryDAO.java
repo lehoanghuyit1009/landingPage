@@ -20,7 +20,7 @@ public class CategoryDAO {
 	public ArrayList<Category> getListCategory(int offset) {
 		ArrayList<Category> listCat = new ArrayList<>();
 		conn = DBConnection.getConnection();
-		String sql = "select * from category LIMIT ?,?  ORDER  BY id DESC";
+		String sql = "SELECT * FROM category ORDER BY id ORDER BY id DESC LIMIT ?,?";
 		try {
 			pst = conn.prepareStatement(sql);
 			pst.setInt(1, offset);
@@ -63,11 +63,9 @@ public class CategoryDAO {
 			pst = conn.prepareStatement(sql);
 			pst.setInt(1, 0);
 			pst.setString(2, name);
-
 			result = pst.executeUpdate();
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			DBConnection.close(pst, conn);

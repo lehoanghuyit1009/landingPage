@@ -3,7 +3,7 @@
 	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 	version="3.1">
-	<display-name>LandingPage</display-name>
+	<display-name>land</display-name>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 		<welcome-file>index.jsp</welcome-file>
@@ -40,4 +40,36 @@
 		<servlet-name>AdminContactIndexController</servlet-name>
 		<url-pattern>/admin/contact/index</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>AdminCommentIndexController</servlet-name>
+		<servlet-class>controller.AdminCommentIndexController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdminCommentIndexController</servlet-name>
+		<url-pattern>/admin/comment/index</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>AdminCommentDeleteController</servlet-name>
+		<servlet-class>controller.AdminCommentDeleteController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdminCommentDeleteController</servlet-name>
+		<url-pattern>/admin/comment/delete</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>NotFound404</servlet-name>
+		<servlet-class>controller.NotFound404</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>NotFound404</servlet-name>
+		<url-pattern>/notFound</url-pattern>
+	</servlet-mapping>
+	<filter>
+		<filter-name>AppFilter</filter-name>
+		<filter-class>filter.AppFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>AppFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 </web-app>

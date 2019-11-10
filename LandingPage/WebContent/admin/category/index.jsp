@@ -24,7 +24,7 @@
           <div class="card mb-3">
             <div class="card-header">
               <i class="fas fa-table"></i>
-              Users List
+              Categories List
              </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -134,7 +134,7 @@
                				<div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
                					<ul class="pagination">
 	               					<%
-	                              		String href = request.getContextPath() + "/admin/categories?page=";
+	                              		String href = request.getContextPath() + "/admin/category/index?page=";
 	                              	%>
 	                              	<!-- Xử lí nut previous -->
                						<li class="paginate_button page-item previous <%if(currentPage == 1) out.print("disabled");%>" id="dataTable_previous">
@@ -237,7 +237,7 @@
 		$('title').html('Category');
 		</script>
         <!-- code script here -->
-        <script>document.getElementById('categories').classList.add('active');</script>
+        <script>document.getElementById('category').classList.add('active');</script>
         
         <%@ include file="/template/admin/inc/end-html.jsp" %>
         

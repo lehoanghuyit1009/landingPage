@@ -12,10 +12,11 @@
     <meta name="author" content="">
     <title>landingpage.com - admin</title>
     <!-- Favicon-->
-	<link rel="shortcut icon" href="<%=request.getContextPath()%>/template/public/img/favicon.ico">
+	<link rel="shortcut icon" href="<%=request.getContextPath()%>/template/public/img/favicon.png">
     <!-- Bootstrap core CSS-->
     <link href="<%=request.getContextPath()%>/template/admin/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom fonts for this template-->
+    <link href="<%=request.getContextPath()%>/template/admin/css/style.css" rel="stylesheet">
     <link href="<%=request.getContextPath()%>/template/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
     <!-- Page level plugin CSS-->
@@ -106,38 +107,43 @@
         <%-- <% }
         %>
         <% if (accessCategories) { %> --%>
-        <li class="nav-item" id="categories">
+        <li class="nav-item" id="category">
           <a class="nav-link" href="<%=request.getContextPath()%>/admin/category/index">
             <i class="fas fa-sitemap"></i>
-            <span>Categories</span></a>
+            <span>Category</span></a>
         </li>
        <%--  <% } %>
         <% if (accessNewses) { %> --%>
-        <li class="nav-item" id="newses">
-          <a class="nav-link" href="<%=request.getContextPath()%>/admin/newses">
+        <li class="nav-item" id="news">
+          <a class="nav-link" href="<%=request.getContextPath()%>/admin/news">
             <i class="far fa-newspaper"></i>
-            <span>Newes</span></a>
+            <span>News</span></a>
         </li>
        <%--  <% } %>
         <% if (accessUsers) { %> --%>
-        <li class="nav-item" id="users">
-          <a class="nav-link" href="<%=request.getContextPath()%>/admin/users">
+        <li class="nav-item" id="user">
+          <a class="nav-link" href="<%=request.getContextPath()%>/admin/user">
             <i class="far fa-user"></i>
-            <span>Users</span></a>
+            <span>User</span></a>
         </li>
        <%--  <% } %>
         <% if (accessSlides) { %> --%>
-        <li class="nav-item" id="slides">
-          <a class="nav-link" href="<%=request.getContextPath()%>/admin/slides">
+        <li class="nav-item" id="slide">
+          <a class="nav-link" href="<%=request.getContextPath()%>/admin/slide">
             <i class="far fa-image"></i>
-            <span>Slides</span></a>
+            <span>Slide</span></a>
         </li>
         <%-- <% } %>
         <% if (accessContacts) { %> --%>
-        <li class="nav-item" id="contacts">
-          <a class="nav-link" href="<%=request.getContextPath()%>/admin/contacts">
+        <li class="nav-item" id="contact">
+          <a class="nav-link" href="<%=request.getContextPath()%>/admin/contact">
             <i class="far fa-address-card"></i>
-            <span>Contacts</span></a>
+            <span>Contact</span></a>
+        </li>
+        <li class="nav-item" id="comment">
+          <a class="nav-link" href="<%=request.getContextPath()%>/admin/comment/index">
+            <i class="far fa-address-card"></i>
+            <span>Comment</span></a>
         </li>
      <%--    <% } %> --%>
       </ul>

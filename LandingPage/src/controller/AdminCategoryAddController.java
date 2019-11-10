@@ -9,15 +9,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.dao.CategoryDAO;
+import model.service.CategoryService;
 
 public class AdminCategoryAddController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private CategoryDAO categoryDAO;
+	private CategoryService categoryService;
 
 	public AdminCategoryAddController() {
 		super();
-		categoryDAO = new CategoryDAO();
-		// TODO Auto-generated constructor stub
+		categoryService = new CategoryService();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -29,7 +29,7 @@ public class AdminCategoryAddController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String name = request.getParameter("name");
-		if (categoryDAO.insert(name) > 0) {
+		if (categoryService.insert(name) > 0) {
 			response.sendRedirect(request.getContextPath() + "/admin/category/index?msg=1");
 		} else {
 			response.sendRedirect(request.getContextPath() + "/admin/category/index?msg=0");
