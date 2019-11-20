@@ -33,4 +33,22 @@ public class RoleDAO {
 		}
 		return listRole;
 	}
+	
+	public ArrayList<Role> getItems() {
+		ArrayList<Role> listRole = new ArrayList<>();
+		conn = DBConnection.getConnection();
+		String sql = "SELECT * FROM role ORDER BY id DESC";
+		try {
+			st = conn.createStatement();
+			rs = st.executeQuery(sql);
+			while (rs.next()) {
+				listRole.add(new Role(rs.getInt("id"), rs.getString("name")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnection.close(rs, st, conn);
+		}
+		return listRole;
+	}
 }

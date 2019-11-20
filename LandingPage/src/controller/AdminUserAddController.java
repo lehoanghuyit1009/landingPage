@@ -45,10 +45,10 @@ public class AdminUserAddController extends HttpServlet {
 		
 		User user = new User(0, username, fullname, password, email, 1, new Role(role, null));
 		if (userDAO.addItem(user) > 0) {
-			response.sendRedirect(request.getContextPath() + "/admin/user/index");
+			response.sendRedirect(request.getContextPath() + "/admin/user/index?msg=1");
 			return;
 		} else {
-			RequestDispatcher rd = request.getRequestDispatcher("/admin/user/add.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/admin/user/add.jsp?msg=0");
 			rd.forward(request, response);
 		}
 	}

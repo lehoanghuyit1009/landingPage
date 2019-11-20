@@ -56,4 +56,28 @@
 		<servlet-name>AdminUserAddController</servlet-name>
 		<url-pattern>/admin/user/add</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>AdminUserDeleteController</servlet-name>
+		<servlet-class>controller.AdminUserDeleteController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdminUserDeleteController</servlet-name>
+		<url-pattern>/admin/user/delete</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>AdminUserEditController</servlet-name>
+		<servlet-class>controller.AdminUserEditController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdminUserEditController</servlet-name>
+		<url-pattern>/admin/user/edit</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>AdminUserSearchController</servlet-name>
+		<servlet-class>controller.AdminUserSearchController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdminUserSearchController</servlet-name>
+		<url-pattern>/admin/user/search</url-pattern>
+	</servlet-mapping>
 </web-app>

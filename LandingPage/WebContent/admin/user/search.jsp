@@ -36,7 +36,7 @@
 					        	Add
 					        </a>
                 		</div>
-                		<div class="col-sm-12 col-md-5">
+                		<div class="col-sm-12 col-md-3">
                 		<%
                 			/* message msg=0|1|2|3|4 */
                 			MessageUtil.getMessage(request, out);
@@ -50,7 +50,7 @@
 	                					name = request.getParameter("name");
 	                				}
 	                			%>
-					        	<input type="text" class="form-control" value="<%=name%>" name="name" required placeholder="Search user" aria-label="Search" aria-describedby="basic-addon2" />
+					        	<input type="text" class="form-control" value="<%=name%>" name="name" required placeholder="Search users" aria-label="Search" aria-describedby="basic-addon2" />
 					          	<div class="input-group-append">
 					            	<button class="btn btn-primary" type="submit">
 						            	<i class="fas fa-search"></i>
@@ -95,17 +95,21 @@
 	                            		
 		                  				@SuppressWarnings("unchecked")
 		                  				ArrayList<User> listUsers =  (ArrayList<User>) request.getAttribute("listUsers");
+		                  				System.out.println(listUsers.size());
 		                  				if (listUsers != null && listUsers.size() > 0) {
 		                  					for (User itemUser : listUsers) {
 		                  			%>
 		                  			<tr role="row" class="odd">
 					                    <td class="sorting_1"><%=itemUser.getId()%></td>
-					                    <td class=""><%=itemUser.getUsername()%></td>
-					                    <td class=""><%=itemUser.getFullname()%></td>
-					                    <td class=""><%=itemUser.getEmail()%></td>
-					                    <td class=""><%=itemUser.getRole().getName()%></td>
+					                    <%
+					                    	/* hight light search string */
+					                    	String nameDisplay = itemUser.getUsername().replace(name, "<span style='color: red'>" + name + "</span>");
+					                    %>
+					                    <td><%=nameDisplay%></td>
+					                    <td><%=itemUser.getFullname()%></td>
+					                    <td><%=itemUser.getEmail()%></td>
+					                    <td><%=itemUser.getRole().getName()%></td>
 					                    <td class="status">
-
 					                    	<% if (!itemUser.getUsername().equals("admin")) { %>
 					                   			<a style="	background-color: <%=itemUser.getColorEnable()%>;
 												color: white;
@@ -129,7 +133,7 @@
 		                  					}
 		                  				} else {
 		                    		%>
-		                    		<tr><td colspan="5" style="text-align: center"><strong>O user.</strong></td></tr>
+		                    		<tr><td colspan="5" style="text-align: center"><span style="color: red"><%=name%></span> not found.</td></tr>
 		                    		<%
 		                  				}
 		                    		%>
@@ -150,14 +154,14 @@
                						int from = (currentPage - 1) * DefineUtil.NUMBER_PER_PAGE + 1;
                						int to = (currentPage - 1) * DefineUtil.NUMBER_PER_PAGE + listUsers.size();
                					%>
-               					Showing <%=from%> to <%=to%> of <%=numberOfItems%> users
+               					Showing <%=from%> to <%=to%> of <%=numberOfItems%> users found.
                				</div>
                			</div>
                			<div class="col-sm-12 col-md-7">
                				<div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
                					<ul class="pagination">
 	               					<%
-	                              		String href = request.getContextPath() + "/admin/user?page=";
+	                              		String href = request.getContextPath() + "/admin/user/search?name=" + name + "&page=";
 	                              	%>
 	                              	<!-- Xử lí nut previous -->
                						<li class="paginate_button page-item previous <%if(currentPage == 1) out.print("disabled");%>" id="dataTable_previous">
@@ -248,7 +252,7 @@
                	</div>
               </div>
             </div>
-          <div class="card-footer small text-muted">Hi Guest. Have a nice day.</div>
+          <div class="card-footer small text-muted">Have a nice day.</div>
         </div>
 
         </div>
@@ -257,9 +261,10 @@
         <%@ include file="/template/admin/inc/footer.jsp" %>
         <%@ include file="/template/admin/inc/script.jsp" %>
         <script>
-		$('title').html('User');
+		$('title').html('User Search');
 		</script>
         <!-- code script here -->
         <script>document.getElementById('users').classList.add('active');</script>
         
         <%@ include file="/template/admin/inc/end-html.jsp" %>
+        

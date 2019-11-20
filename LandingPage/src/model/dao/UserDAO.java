@@ -39,7 +39,6 @@ public class UserDAO {
 				listUsers.add(new User(rs.getInt("id"), rs.getString("username"), rs.getString("fullname"), rs.getString("password"),
 						rs.getString("email") ,rs.getInt("enable"),
 						new Role(rs.getInt("id"), rs.getString("name"))));
-				System.out.println(rs.getString("password"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -66,7 +65,6 @@ public class UserDAO {
 		} finally {
 			DBConnection.close(rs, st, conn);
 		}
-		System.out.println(count);
 		return count;
 
 	}
@@ -112,15 +110,15 @@ public class UserDAO {
 	public User getItem(int id) {
 		User user = null;
 		conn = DBConnection.getConnection();
-		String sql = "SELECT * FROM user WHERE u.id = ?";
+		String sql = "SELECT * FROM user WHERE id = ?";
 		try {
 			pst = conn.prepareStatement(sql);
 			pst.setInt(1, id);
 			rs = pst.executeQuery();
 			if (rs.next()) {
 				user = new User(rs.getInt("id"), rs.getString("username"), rs.getString("fullname"), rs.getString("password"),
-						rs.getString("email"),rs.getInt("enable"),
-						new Role(rs.getInt("id"), rs.getString("name")));
+						rs.getString("email") ,rs.getInt("enable"),
+						new Role(rs.getInt("id"), rs.getString("id")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -219,13 +217,14 @@ public class UserDAO {
 		} finally {
 			DBConnection.close(rs, pst, conn);
 		}
+		System.out.println(count);
 		return count;
 	}
 
 	public ArrayList<User> getItemsSearchPaginaiton(String name, int offset) {
 		ArrayList<User> listUsers = new ArrayList<>();
 		conn = DBConnection.getConnection();
-		String sql = "SELECT user.*, role.name AS name FROM user INNER JOIN role WHERE user.id = role.id ORDER BY user.id WHERE user.username LIKE ? ORDER BY user.id DESC LIMIT ?, ?";
+		String sql = "SELECT user.*, role.name AS name FROM user INNER JOIN role ON user.id = role.id WHERE user.username LIKE ? ORDER BY user.id LIMIT ?,?";
 		try {
 			pst = conn.prepareStatement(sql);
 			pst.setString(1, "%" + name + "%");
@@ -234,7 +233,7 @@ public class UserDAO {
 			rs = pst.executeQuery();
 			while (rs.next()) {
 				User itemUser = new User(rs.getInt("id"), rs.getString("username"),rs.getString("fullname"), rs.getString("password"),
-						 rs.getString("email") ,rs.getInt("active"),
+						 rs.getString("email") ,rs.getInt("enable"),
 						new Role(rs.getInt("id"), rs.getString("name")));
 				listUsers.add(itemUser);
 			}
