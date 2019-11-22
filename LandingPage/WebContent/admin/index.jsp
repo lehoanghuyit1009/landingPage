@@ -34,7 +34,7 @@
                   </div>
                   <div class="mr-5"><%-- <%=countUser%> --%>11 Users!</div>
                 </div>
-                <a class="card-footer text-white clearfix small z-1" href="<%=request.getContextPath()%>/admin/users">
+                <a class="card-footer text-white clearfix small z-1" href="<%=request.getContextPath()%>/admin/user/index">
                   <span class="float-left">View Details</span>
                   <span class="float-right">
                     <i class="fas fa-angle-right"></i>
@@ -70,7 +70,7 @@
                   </div>
                   <div class="mr-5"><%-- <%=countNews%> --%>11 News</div>
                 </div>
-                <a class="card-footer text-white clearfix small z-1" href="<%=request.getContextPath()%>/admin/newses">
+                <a class="card-footer text-white clearfix small z-1" href="<%=request.getContextPath()%>/admin/news/index">
                   <span class="float-left">View Details</span>
                   <span class="float-right">
                     <i class="fas fa-angle-right"></i>
@@ -88,7 +88,7 @@
                   </div>
                   <div class="mr-5"><%-- <%=countSlide%> --%>11 Slide avalible</div>
                 </div>
-                <a class="card-footer text-white clearfix small z-1" href="<%=request.getContextPath()%>/admin/slides">
+                <a class="card-footer text-white clearfix small z-1" href="<%=request.getContextPath()%>/admin/slide/index">
                   <span class="float-left">View Details</span>
                   <span class="float-right">
                     <i class="fas fa-angle-right"></i>

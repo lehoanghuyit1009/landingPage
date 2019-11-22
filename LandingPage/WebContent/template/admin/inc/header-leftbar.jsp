@@ -12,7 +12,7 @@
     <meta name="author" content="">
     <title>landingpage.com - admin</title>
     <!-- Favicon-->
-	<link rel="shortcut icon" href="<%=request.getContextPath()%>/template/public/img/favicon.png">
+	<link rel="shortcut icon" href="<%=request.getContextPath()%>/template/public/img/favicon.ico">
     <!-- Bootstrap core CSS-->
     <link href="<%=request.getContextPath()%>/template/admin/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom fonts for this template-->
@@ -21,7 +21,7 @@
 
     <!-- Page level plugin CSS-->
     <link href="<%=request.getContextPath()%>/template/admin/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
-
+	
     <!-- Custom styles for this template-->
     <link href="<%=request.getContextPath()%>/template/admin/css/sb-admin.css" rel="stylesheet">
   </head>
@@ -115,28 +115,28 @@
        <%--  <% } %>
         <% if (accessNewses) { %> --%>
         <li class="nav-item" id="news">
-          <a class="nav-link" href="<%=request.getContextPath()%>/admin/news">
+          <a class="nav-link" href="<%=request.getContextPath()%>/admin/news/index">
             <i class="far fa-newspaper"></i>
             <span>News</span></a>
         </li>
        <%--  <% } %>
         <% if (accessUsers) { %> --%>
         <li class="nav-item" id="user">
-          <a class="nav-link" href="<%=request.getContextPath()%>/admin/user">
+          <a class="nav-link" href="<%=request.getContextPath()%>/admin/user/index">
             <i class="far fa-user"></i>
             <span>User</span></a>
         </li>
        <%--  <% } %>
         <% if (accessSlides) { %> --%>
         <li class="nav-item" id="slide">
-          <a class="nav-link" href="<%=request.getContextPath()%>/admin/slide">
+          <a class="nav-link" href="<%=request.getContextPath()%>/admin/slide/index">
             <i class="far fa-image"></i>
             <span>Slide</span></a>
         </li>
         <%-- <% } %>
         <% if (accessContacts) { %> --%>
         <li class="nav-item" id="contact">
-          <a class="nav-link" href="<%=request.getContextPath()%>/admin/contact">
+          <a class="nav-link" href="<%=request.getContextPath()%>/admin/contact/index">
             <i class="far fa-address-card"></i>
             <span>Contact</span></a>
         </li>

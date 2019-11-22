@@ -13,7 +13,7 @@
               <a href="<%=request.getContextPath()%>/admin">Dashboard</a>
             </li>
             <li class="breadcrumb-item">
-              <a href="<%=request.getContextPath()%>/admin/categories">Categories</a>
+              <a href="<%=request.getContextPath()%>/admin/category/index">Category</a>
             </li>
             <li class="breadcrumb-item active">Add</li>
           </ol>
@@ -25,30 +25,17 @@
               Add A Category
             </div>
             <div id="category-exist">
-            <%
-            	String msg = request.getParameter("msg");
-            	if ("0".equals(msg)) {
-            		out.print("<div class='alert alert-warning message'><i class='fas fa-times'></i>  Category is existed.</div>");
-            	}
-            %>
             </div>
             <div class="card-body">
 	          <form action="<%=request.getContextPath()+"/admin/category/add" %>" method="post">
 	            <div class="form-group">
 	              <div class="form-label-group">
-	                <input type="text" name="name" value="<%-- <%if(username != null) out.print(username);%> --%>" id="name" class="form-control"
+	                <input type="text" name="name" value="" id="name" class="form-control"
 	                 	placeholder="Category" pattern=".{3,32}" title="Category name from 3 to 32 letter" 
 	                 	maxlength="32" required autofocus="autofocus" />
 	                <label for="name">Category</label>
 	              </div>
 	            </div>
-	            <%
-	            	Category category = (Category) request.getAttribute("category");
-	                int id = 0;
-	                if (category != null)
-	                	id= category.getId();
-	                
-	            %>
 	            <div class="form-group d-inline-block">
 	            	<button type="submit" id="submit" class="btn btn-primary" name="submit">
 	            		<i class="fas fa-plus"></i>
@@ -69,6 +56,6 @@
 		$('title').html('Category Add');
 		</script>
         <!-- code script here -->
-        <script type="text/javascript">document.getElementById('categories').classList.add('active');</script>
+        <script type="text/javascript">document.getElementById('category').classList.add('active');</script>
         
         <%@ include file="/template/admin/inc/end-html.jsp" %>

@@ -2,10 +2,11 @@ package model.bean;
 
 public class Slide {
 	private int id;
+	private String name;
 	private String link;
 	private String picture;
 	private int sort;
-	private String title;
+	private int active;
 
 	public int getId() {
 		return id;
@@ -13,6 +14,14 @@ public class Slide {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getLink() {
@@ -39,21 +48,22 @@ public class Slide {
 		this.sort = sort;
 	}
 
-	public String getTitle() {
-		return title;
+	public int getActive() {
+		return active;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setActive(int active) {
+		this.active = active;
 	}
 
-	public Slide(int id, String link, String picture, int sort, String title) {
+	public Slide(int id, String name, String link, String picture, int sort, int active) {
 		super();
 		this.id = id;
+		this.name = name;
 		this.link = link;
 		this.picture = picture;
 		this.sort = sort;
-		this.title = title;
+		this.active = active;
 	}
 
 	public Slide() {
@@ -63,8 +73,8 @@ public class Slide {
 
 	@Override
 	public String toString() {
-		return "Slide [id=" + id + ", link=" + link + ", picture=" + picture + ", sort=" + sort + ", title=" + title
-				+ "]";
+		return "Slide [id=" + id + ", name=" + name + ", link=" + link + ", picture=" + picture + ", sort=" + sort
+				+ ", active=" + active + "]";
 	}
 
 }

@@ -1,37 +1,75 @@
 <%@page import="util.StringUtil"%>
+<%@page import="util.DateUtil"%>
 <%@page import="model.bean.News"%>
 <%@page import="java.util.ArrayList"%>
+<%@page import="model.dao.NewsDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <div class="col-lg-4">
 	<div class="sidebars-area" id="sidebars-area">
+		<%
+			if(request.getAttribute("listRelate")!= null){
+		%>
 		<div class="single-sidebar-widget most-popular-widget">
-			<h6 class="title">Most Popular</h6>
-			<%-- <%
-				NewsDAO newsDAO = new NewsDAO();
-				ArrayList<News> listPopularNewses = newsDAO.getPopularItems(3);
-				if (listPopularNewses != null && listPopularNewses.size() > 0) { 
-					for (News itemNews : listPopularNewses) {
-			%> --%>
+			<h6 class="title">Relate news</h6>
+			<%
+				if(request.getAttribute("listRelate")!=null){
+					ArrayList<News> listRelate = (ArrayList<News>)request.getAttribute("listRelate");
+					if (listRelate != null && listRelate.size() > 0) { 
+						for (News item : listRelate) {
+			%>
 			<div class="single-list flex-row d-flex">
 				<div class="thumb">
-					<img src="<%=request.getContextPath()%>/files/<%-- <%=itemNews.getPicture()%> --%>" alt="" style="width: 100px; height: 90px;">
+					<img src="<%=request.getContextPath()%>/files/<%=item.getPicture()%>" alt="" style="width: 100px; height: 90px;">
 				</div>
 				<div class="details">
-					<a href="<%=request.getContextPath()%>/detail/<%-- <%=StringUtil.makeSlug(itemNews.getName())%>-<%=itemNews.getId()%> --%>">
-						<h6><%-- <%=StringUtil.getText(itemNews.getName(), 70)%> --%></h6>
+					<a href="<%=request.getContextPath()%>/detail/<%=StringUtil.makeSlug(item.getName())%>-<%=item.getId()%>">
+						<h6><%=StringUtil.getText(item.getName(), 70)%></h6>
 					</a>
 					<ul class="meta">
-						<li><a href="#"><span class="lnr lnr-calendar-full"></span><%-- <%=DateUtil.getDateFormat(itemNews.getDateCreate())%> --%></a></li>
+						<li><a href="#"><span class="lnr lnr-calendar-full"></span><%=DateUtil.getDateFormat(item.getDateCreate())%></a></li>
 						<li><a href="#"><span class="lnr lnr-bubble"></span>06</a></li>
 					</ul>
 				</div>
 			</div>
-			<%-- <%
+			<%
+						}
 					}
 				}
-			%> --%>
+			%>
+		</div>			
+		<%
+			}
+		%>
+		<div class="single-sidebar-widget most-popular-widget">
+			<h6 class="title">Most Popular</h6>
+			<%
+				if(request.getAttribute("listPopular")!=null){
+					ArrayList<News> listPopular = (ArrayList<News>)request.getAttribute("listPopular");
+					if (listPopular != null && listPopular.size() > 0) { 
+						for (News itemNews : listPopular) {
+			%>
+			<div class="single-list flex-row d-flex">
+				<div class="thumb">
+					<img src="<%=request.getContextPath()%>/files/<%=itemNews.getPicture()%>" alt="" style="width: 100px; height: 90px;">
+				</div>
+				<div class="details">
+					<a href="<%=request.getContextPath()%>/detail/<%=StringUtil.makeSlug(itemNews.getName())%>-<%=itemNews.getId()%>">
+						<h6><%=StringUtil.getText(itemNews.getName(), 70)%></h6>
+					</a>
+					<ul class="meta">
+						<li><a href="#"><span class="lnr lnr-calendar-full"></span><%=DateUtil.getDateFormat(itemNews.getDateCreate())%></a></li>
+						<li><a href="#"><span class="lnr lnr-bubble"></span>06</a></li>
+					</ul>
+				</div>
+			</div>
+			<%
+						}
+					}
+				}
+			%>
 		</div>
+		
 		<%-- <div class="single-sidebar-widget ads-widget">
 			<img class="img-fluid" src="<%=request.getContextPath()%>/template/public/img/sidebar-ads.jpg" alt="">
 		</div> --%>

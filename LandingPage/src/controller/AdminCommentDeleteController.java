@@ -22,17 +22,17 @@ public class AdminCommentDeleteController extends HttpServlet {
 			throws ServletException, IOException {
 		int id = 0, page = 0;
 		try {
-			Integer.parseInt(request.getParameter("id"));
-			//Integer.parseInt(request.getParameter("page"));
+			id = Integer.parseInt(request.getParameter("id"));
+			page = Integer.parseInt(request.getParameter("page"));
 		} catch (Exception e) {
 			response.sendRedirect(request.getContextPath() + "/notFound");
 			return;
 		}
 		if (commentService.deleteItem(id) > 0) {
-			response.sendRedirect(request.getContextPath() + "/admin/comment/index?msg=0");
+			response.sendRedirect(request.getContextPath() + "/admin/comment/index?page=" + page + "&&msg=3");
 			return;
 		}
-		response.sendRedirect(request.getContextPath() + "/admin/comment/index?msg=1");
+		response.sendRedirect(request.getContextPath() + "/admin/comment/index?page=" + page + "&&msg=0");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

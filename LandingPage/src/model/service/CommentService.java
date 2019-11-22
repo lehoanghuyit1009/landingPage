@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import model.bean.Comment;
+import model.bean.News;
 import model.bean.User;
 import model.dao.CommentDAO;
 import model.dao.NewsDAO;
@@ -17,7 +18,7 @@ public class CommentService {
 	public CommentService() {
 		userDAO = new UserDAO();
 		commentDAO = new CommentDAO();
-		newsDAO = new  NewsDAO();
+		newsDAO = new NewsDAO();
 	}
 
 	public int countItems() {
@@ -49,12 +50,25 @@ public class CommentService {
 
 	public HashMap<Integer, String> getListNewsName(ArrayList<Comment> listComment) {
 		HashMap<Integer, String> listNewsName = new HashMap<>();
-		for (Comment comment : listComment) {
-			String newsName = newsDAO.getNewsName(comment.getIdNews());
-			if (newsName != null && listNewsName.get(comment.getIdNews()) == null) {
-				listNewsName.put(comment.getIdNews(), newsName);
+		if(listComment != null) {
+			for (Comment comment : listComment) {
+				String newsName = newsDAO.getNewsName(comment.getIdNews());
+				if (newsName != null && listNewsName.get(comment.getIdNews()) == null) {
+					listNewsName.put(comment.getIdNews(), newsName);
+				}
 			}
 		}
 		return listNewsName;
+	}
+
+	public HashMap<Integer, Integer> getListCountComment(ArrayList<News> listNews) {
+		HashMap<Integer, Integer> listCountComment = new HashMap<>();
+		if (listNews != null) {
+			for (News news : listNews) {
+				int count = commentDAO.countByNewsId(news.getId());
+				listCountComment.put(news.getId(), count);
+			}
+		}
+		return listCountComment;
 	}
 }

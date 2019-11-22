@@ -17,7 +17,7 @@ public class CommentDAO {
 	private Statement st;
 	private PreparedStatement pst;
 	private Connection conn;
-
+	
 	public int countItems() {
 		conn = DBConnection.getConnection();
 		String sql = "SELECT count(*) as count from comment";
@@ -88,6 +88,38 @@ public class CommentDAO {
 			e.printStackTrace();
 		} finally {
 			DBConnection.close(pst, conn);
+		}
+		return 0;
+	}
+
+	public void deleteItemByNewsID(int id) {
+		conn = DBConnection.getConnection();
+		String sql = "DELETE from comment WHERE idNews = ?";
+		try {
+			pst = conn.prepareStatement(sql);
+			pst.setInt(1, id);
+			pst.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnection.close(pst, conn);
+		}
+	}
+
+	public int countByNewsId(int id) {
+		conn = DBConnection.getConnection();
+		String sql = "SELECT count(*) as count from comment WHERE idNews=?";
+		try {
+			pst = conn.prepareStatement(sql);
+			pst.setInt(1, id);
+			rs = pst.executeQuery();
+			if (rs.next()) {
+				return rs.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnection.close(rs, pst, conn);
 		}
 		return 0;
 	}

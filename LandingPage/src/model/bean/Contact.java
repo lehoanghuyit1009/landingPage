@@ -7,7 +7,6 @@ public class Contact {
 	private String subject;
 	private String content;
 	private int status;
-	private int idNews;
 
 	public int getId() {
 		return id;
@@ -57,20 +56,12 @@ public class Contact {
 		this.status = status;
 	}
 
-	public int getIdNews() {
-		return idNews;
-	}
-
-	public void setIdNews(int idNews) {
-		this.idNews = idNews;
-	}
-
 	public Contact() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Contact(int id, String name, String email, String subject, String content, int status, int idNews) {
+	public Contact(int id, String name, String email, String subject, String content, int status) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -78,13 +69,12 @@ public class Contact {
 		this.subject = subject;
 		this.content = content;
 		this.status = status;
-		this.idNews = idNews;
 	}
 
 	@Override
 	public String toString() {
 		return "Contact [id=" + id + ", name=" + name + ", email=" + email + ", subject=" + subject + ", content="
-				+ content + ", status=" + status + ", idNews=" + idNews + "]";
+				+ content + ", status=" + status;
 	}
 
 }

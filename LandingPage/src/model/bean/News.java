@@ -14,6 +14,7 @@ public class News {
 	private Timestamp dateCreate;
 	private Category category;
 	private double area;
+	private int createBy;
 
 	public int getId() {
 		return id;
@@ -103,6 +104,14 @@ public class News {
 		this.area = area;
 	}
 
+	public int getCreateBy() {
+		return createBy;
+	}
+
+	public void setCreateBy(int createBy) {
+		this.createBy = createBy;
+	}
+
 	public News(int id, String name, String description, String detail, String address, String picture, int views,
 			double cost, Timestamp dateCreate, Category category, double area) {
 		super();
@@ -117,6 +126,23 @@ public class News {
 		this.dateCreate = dateCreate;
 		this.category = category;
 		this.area = area;
+	}
+
+	public News(int id, String name, String description, String detail, String address, String picture, int views,
+			double cost, Timestamp dateCreate, Category category, double area, int createBy) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.detail = detail;
+		this.address = address;
+		this.picture = picture;
+		this.views = views;
+		this.cost = cost;
+		this.dateCreate = dateCreate;
+		this.category = category;
+		this.area = area;
+		this.createBy = createBy;
 	}
 
 	public News() {

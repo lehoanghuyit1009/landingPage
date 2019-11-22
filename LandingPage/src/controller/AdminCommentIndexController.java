@@ -32,8 +32,6 @@ public class AdminCommentIndexController extends HttpServlet {
 			int numberOfPages = (int) Math.ceil((float) numberOfItems / DefineUtil.NUMBER_PER_PAGE);
 			int currentPage = 1;
 			String page = request.getParameter("page");
-			Pagination pagination = new Pagination();
-			pagination.pagination(currentPage, numberOfPages);
 			try {
 				if (page != null) {
 					currentPage = Integer.parseInt(request.getParameter("page"));

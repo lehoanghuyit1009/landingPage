@@ -29,10 +29,16 @@ public class AdminCategoryIndexController extends HttpServlet {
 		if (numberOfItems > 0) {
 			int numberOfPages = (int) Math.ceil((float) numberOfItems / DefineUtil.NUMBER_PER_PAGE);
 			int currentPage = 1;
+			String page = request.getParameter("page");
 			try {
-				currentPage = Integer.parseInt(request.getParameter("page"));
+				if (page != null) {
+					currentPage = Integer.parseInt(request.getParameter("page"));
+				} else {
+					currentPage = 1;
+				}
 			} catch (NumberFormatException e) {
-				// send to Error page
+				response.sendRedirect(request.getContextPath() + "/notFound");
+				return;
 			}
 			if (currentPage < 1)
 				currentPage = 1;

@@ -20,7 +20,7 @@ public class CategoryDAO {
 	public ArrayList<Category> getListCategory(int offset) {
 		ArrayList<Category> listCat = new ArrayList<>();
 		conn = DBConnection.getConnection();
-		String sql = "SELECT * FROM category ORDER BY id ORDER BY id DESC LIMIT ?,?";
+		String sql = "SELECT * FROM category ORDER BY id DESC LIMIT ?,?";
 		try {
 			pst = conn.prepareStatement(sql);
 			pst.setInt(1, offset);
@@ -71,5 +71,75 @@ public class CategoryDAO {
 			DBConnection.close(pst, conn);
 		}
 		return result;
+	}
+
+	public Category getItemById(int id) {
+		conn = DBConnection.getConnection();
+		String sql = "SELECT * FROM category WHERE id =?";
+		try {
+			pst = conn.prepareStatement(sql);
+			pst.setInt(1, id);
+			rs = pst.executeQuery();
+			if (rs.next()) {
+				return new Category(rs.getInt("id"), rs.getString("name"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnection.close(rs, pst, conn);
+		}
+		return null;
+	}
+
+	public int edit(int id, Category category) {
+		conn = DBConnection.getConnection();
+		String sql = "UPDATE `category` SET name=? WHERE id=?";
+		int result = 0;
+		try {
+			pst = conn.prepareStatement(sql);
+			pst.setString(1, category.getName());
+			pst.setInt(2, id);
+			result = pst.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnection.close(pst, conn);
+		}
+		return result;
+	}
+
+	public int delItem(int id) {
+		conn = DBConnection.getConnection();
+		String sql = "DELETE FROM category WHERE id =?";
+		int result = 0;
+		try {
+			pst = conn.prepareStatement(sql);
+			pst.setInt(1, id);
+			result = pst.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnection.close(pst, conn);
+		}
+		return result;
+	}
+
+	public ArrayList<Category> getAllListCat() {
+		ArrayList<Category> listCat = new ArrayList<>();
+		conn = DBConnection.getConnection();
+		String sql = "SELECT * FROM category ORDER BY id DESC";
+		try {
+			pst = conn.prepareStatement(sql);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				listCat.add(new Category(rs.getInt("id"), rs.getString("name")));
+			}
+			return listCat;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			DBConnection.close(rs, pst, conn);
+		}
 	}
 }

@@ -33,6 +33,14 @@
 		<url-pattern>/admin/category/add</url-pattern>
 	</servlet-mapping>
 	<servlet>
+		<servlet-name>AdminContactDeleteController</servlet-name>
+		<servlet-class>controller.AdminContactDeleteController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdminContactDeleteController</servlet-name>
+		<url-pattern>/admin/contact/del</url-pattern>
+	</servlet-mapping>
+	<servlet>
 		<servlet-name>AdminContactIndexController</servlet-name>
 		<servlet-class>controller.AdminContactIndexController</servlet-class>
 	</servlet>
@@ -57,6 +65,142 @@
 		<url-pattern>/admin/comment/delete</url-pattern>
 	</servlet-mapping>
 	<servlet>
+		<servlet-name>AdminCategoryEditController</servlet-name>
+		<servlet-class>controller.AdminCategoryEditController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdminCategoryEditController</servlet-name>
+		<url-pattern>/admin/category/edit</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>AdminCategoryDeleteController</servlet-name>
+		<servlet-class>controller.AdminCategoryDeleteController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdminCategoryDeleteController</servlet-name>
+		<url-pattern>/admin/category/del</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>AdminNewsIndexController</servlet-name>
+		<servlet-class>controller.AdminNewsIndexController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdminNewsIndexController</servlet-name>
+		<url-pattern>/admin/news/index</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>AdminNewsAddController</servlet-name>
+		<servlet-class>controller.AdminNewsAddController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdminNewsAddController</servlet-name>
+		<url-pattern>/admin/news/add</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>AdminNewsEditController</servlet-name>
+		<servlet-class>controller.AdminNewsEditController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdminNewsEditController</servlet-name>
+		<url-pattern>/admin/news/edit</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>AdminNewsDeleteController</servlet-name>
+		<servlet-class>controller.AdminNewsDeleteController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdminNewsDeleteController</servlet-name>
+		<url-pattern>/admin/news/del</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>AdminSlideIndexController</servlet-name>
+		<servlet-class>controller.AdminSlideIndexController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdminSlideIndexController</servlet-name>
+		<url-pattern>/admin/slide/index</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>AdminSlideAddController</servlet-name>
+		<servlet-class>controller.AdminSlideAddController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdminSlideAddController</servlet-name>
+		<url-pattern>/admin/slide/add</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>AdminSlideEditController</servlet-name>
+		<servlet-class>controller.AdminSlideEditController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdminSlideEditController</servlet-name>
+		<url-pattern>/admin/slide/edit</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>AdminUserIndexController</servlet-name>
+		<servlet-class>controller.AdminUserIndexController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdminUserIndexController</servlet-name>
+		<url-pattern>/admin/user/index</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>AdminUserAddController</servlet-name>
+		<servlet-class>controller.AdminUserAddController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdminUserAddController</servlet-name>
+		<url-pattern>/admin/user/add</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>AdminUserEditController</servlet-name>
+		<servlet-class>controller.AdminUserEditController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdminUserEditController</servlet-name>
+		<url-pattern>/admin/user/edit</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>AdminUserDeleteController</servlet-name>
+		<servlet-class>controller.AdminUserDeleteController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdminUserDeleteController</servlet-name>
+		<url-pattern>/admin/user/del</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>PublicIndexController</servlet-name>
+		<servlet-class>controller.PublicIndexController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PublicIndexController</servlet-name>
+		<url-pattern></url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>PublicContactController</servlet-name>
+		<servlet-class>controller.PublicContactController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PublicContactController</servlet-name>
+		<url-pattern>/contact</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>PublicDetailController</servlet-name>
+		<servlet-class>controller.PublicDetailController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PublicDetailController</servlet-name>
+		<url-pattern>/detail</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>PublicCatController</servlet-name>
+		<servlet-class>controller.PublicCatController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PublicCatController</servlet-name>
+		<url-pattern>/category</url-pattern>
+	</servlet-mapping>
+	<servlet>
 		<servlet-name>NotFound404</servlet-name>
 		<servlet-class>controller.NotFound404</servlet-class>
 	</servlet>
@@ -71,5 +215,46 @@
 	<filter-mapping>
 		<filter-name>AppFilter</filter-name>
 		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<filter>
+		<filter-name>AppFilterPublicSlide</filter-name>
+		<filter-class>filter.AppFilterPublicSlide</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>AppFilterPublicSlide</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<servlet>
+		<servlet-name>ConnectorServlet</servlet-name>
+		<servlet-class>com.ckfinder.connector.ConnectorServlet</servlet-class>
+		<init-param>
+			<description>
+				Path to configuration file can be relative path inside application,
+				absolute path on local file system or UNC path.
+			</description>
+			<param-name>XMLConfig</param-name>
+			<param-value>/WEB-INF/config.xml</param-value>
+		</init-param>
+		<init-param>
+			<param-name>debug</param-name>
+			<param-value>false</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ConnectorServlet</servlet-name>
+		<url-pattern>
+			/libraries/ckfinder/core/connector/java/connector.java
+		</url-pattern>
+	</servlet-mapping>
+	<filter>
+		<filter-name>UrlRewriteFilter</filter-name>
+		<filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>UrlRewriteFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
 	</filter-mapping>
 </web-app>
