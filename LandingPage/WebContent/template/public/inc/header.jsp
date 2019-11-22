@@ -1,3 +1,6 @@
+<%@page import="util.StringUtil"%>
+<%@page import="model.bean.Category"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="model.bean.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -21,7 +24,7 @@
 		<!-- meta character set -->
 		<meta charset="UTF-8">
 		<!-- Site Title -->
-		<title>itsontran</title>
+		<title>landingpage</title>
 		<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
 		<!--
 		CSS
@@ -35,7 +38,13 @@
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/template/public/css/owl.carousel.css">
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/template/public/css/jquery-ui.css">
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/template/public/css/main.css">
+		<style type="text/css">
+			.myfooter{
+				padding: 10px !important;
+    			min-height: 50px !important;
+			}
 		
+		</style>
 		
 	</head>
 	<body>
@@ -53,15 +62,24 @@
 						</div>
 						<div class="col-lg-6 col-md-6 col-sm-6 col-6 header-top-right no-padding">
 							<ul class="nav-menu d-flex justify-content-end">
-								<li><a href="<%=request.getContextPath()%>/about">About</a></li>
 								<li><a href="<%=request.getContextPath()%>/contact">Contact</a></li>
-								
-								<li><a href="<%=request.getContextPath()%>/login">Login</a></li>
-								
-								<li><a title="Logout" href="<%=request.getContextPath()%>/logout">
+								<li><a title="Logout " href="<%=request.getContextPath()%>/logout">ADMIN
 									<i class="fa fa-user-circle" style="font-size: 13px;"></i>
 								</a></li>
-								
+								<%-- <%
+									User userLogin = AuthUtil.getUserLoginPublic(request);
+									if (userLogin == null) {
+								%>
+								<li><a href="<%=request.getContextPath()%>/login">Login</a></li>
+								<%
+									} else {
+								%>
+								<li><a title="Logout <%=userLogin.getUsername()%>" href="<%=request.getContextPath()%>/logout"><%=userLogin.getUsername()%>
+									<i class="fa fa-user-circle" style="font-size: 13px;"></i>
+								</a></li>
+								<%
+									}
+								%> --%>
 							</ul>
 						</div>
 					</div>
@@ -72,12 +90,12 @@
 					<div class="row justify-content-between align-items-center">
 						<div class="col-lg-4 col-md-4 col-sm-12 logo-left no-padding">
 							<a href="<%=request.getContextPath()%>/">
-								<img class="img-fluid" src="<%=request.getContextPath()%>/template/public/img/logo.png" alt="">
+								<img class="img-fluid" src="<%=request.getContextPath()%>/template/public/img/logo.png" width="200px" height="30px" alt="">
 							</a>
 						</div>
-						<div class="col-lg-8 col-md-8 col-sm-12 logo-right no-padding ads-banner">
+						<%-- <div class="col-lg-8 col-md-8 col-sm-12 logo-right no-padding ads-banner">
 							<img class="img-fluid" src="<%=request.getContextPath()%>/template/public/img/banner-ad.png" alt="" style="width: 728px; height: 90px;">
-						</div>
+						</div> --%>
 					</div>
 				</div>
 			</div>
@@ -85,10 +103,20 @@
 				<div class="row align-items-center justify-content-between">
 					<nav id="nav-menu-container">
 						<!-- Create multiple menu -->
-						<ul class='nav-menu'>
-							<li><a href=''>Bán đất</a></li>
-							<li><a href=''>Bán nhà</a></li>
-							<li><a href=''>Cho thuê biệt thự</a></li>
+						<ul class="nav-menu d-flex justify-content-end">
+							<%
+								if(request.getAttribute("listCat")!= null){
+									ArrayList<Category> listCat = (ArrayList<Category>)request.getAttribute("listCat");
+									if(listCat != null && listCat.size() >0){
+										for(Category category: listCat){
+											String href = request.getContextPath() + "/category/" + StringUtil.makeSlug(category.getName()) + "-" + category.getId();
+							%>
+							<li><a href="<%=href%>"><%=category.getName() %></a></li>
+							<%
+										}
+									}
+								}
+							%>
 						</ul>
 					</nav><!-- #nav-menu-container -->
 					<div class="navbar-right">

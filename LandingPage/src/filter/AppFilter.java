@@ -26,6 +26,7 @@ public class AppFilter implements Filter {
 		httpServletResponse.setCharacterEncoding("UTF-8");
 		httpServletResponse.setContentType("text/html");
 		chain.doFilter(request, response);
+		
 	}
 
 	public void init(FilterConfig fConfig) throws ServletException {

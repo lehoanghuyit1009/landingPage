@@ -17,7 +17,6 @@ public class StringUtil {
 			md = MessageDigest.getInstance("MD5");
 			md.update(str.getBytes());
 			BigInteger bi = new BigInteger(1, md.digest());
-
 			result = bi.toString(16);
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();

@@ -1,3 +1,4 @@
+<%@page import="util.MessageUtil"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="model.service.UserService"%>
 <%@page import="model.dao.UserDAO"%>
@@ -34,12 +35,12 @@
 						class="dataTables_wrapper dt-bootstrap4">
 						<div class="row justify-content-between">
 							<div class="col-sm-12 col-md-5">
-
-								<%-- <%
-                		get message
-                			/* message msg=0|1|2|3|4 */
-                			MessageUtils.getMessage(request, out);
-                		%> --%>
+							<%
+								//	get message
+	                			/* message msg=0|1|2|3|4 */
+	                			MessageUtil.getMessage(request, out);
+							%>
+                		
 							</div>
 							<div class="col-sm-12 col-md-5">
 								<form
@@ -72,7 +73,7 @@
 										<tr role="row">
 											<th class="sorting text-center" tabindex="0"
 												aria-controls="dataTable" rowspan="1" colspan="1"
-												aria-sort="ascending" width="20px;"
+												aria-sort="ascending" width="15px;"
 												aria-label="Name: activate to sort column descending">Id</th>
 											<th class="sorting text-center" tabindex="0"
 												aria-controls="dataTable" rowspan="1" colspan="1"
@@ -141,7 +142,7 @@
 														href="<%=url%>/delete?page=<%=currentPage%>&id=<%=item.getId()%>"
 														class="btn btn-danger"
 														onclick="return confirm('Are you want to delete <%=item.getId()%>?')">
-														<i class="fas fa-trash-alt"></i> Delete
+														<i class="fas fa-trash-alt"></i>
 													</a>
 												</div>
 											</td>
@@ -151,7 +152,7 @@
 											} else {
 										%>
 										<tr>
-											<td colspan="5" style="text-align: center"><strong>0
+											<td colspan="7" style="text-align: center"><strong>0
 													comment.</strong></td>
 										</tr>
 										<%
@@ -180,7 +181,7 @@
 									<%=to%>
 									of
 									<%=numberOfItems%>
-									categories.
+									comment.
 								</div>
 							</div>
 							<div class="col-sm-12 col-md-7">
@@ -299,7 +300,6 @@
 		document.getElementById('comment').classList.add('active');
 	</script>
 	<script>
-	    document.getElementById("slide").classList.add('active-menu');
 	    function getActive(trangthai,id){
 	    	$.ajax({
 	    		url: '<%=request.getContextPath()%>/admin/comment/index',

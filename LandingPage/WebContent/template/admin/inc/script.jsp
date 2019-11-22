@@ -14,7 +14,8 @@
 
     <!-- Custom scripts for all pages-->
     <script src="<%=request.getContextPath()%>/template/admin/js/sb-admin.js"></script>
-
+	<script src="<%=request.getContextPath()%>/libraries/ckeditor/ckeditor.js"></script>
+	<script src="<%=request.getContextPath()%>/libraries/ckfinder/ckfinder.js"></script>
     <!-- Demo scripts for this page-->
     <%-- <script src="<%=request.getContextPath()%>/template/admin/js/demo/datatables-demo.js"></script>
     <script src="<%=request.getContextPath()%>/template/admin/js/demo/chart-area-demo.js"></script> --%>

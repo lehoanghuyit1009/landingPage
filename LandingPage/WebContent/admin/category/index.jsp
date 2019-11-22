@@ -1,3 +1,4 @@
+<%@page import="util.MessageUtil"%>
 <%@page import="util.DefineUtil"%>
 <%@page import="sun.misc.MessageUtils"%>
 <%@page import="model.bean.Category"%>
@@ -39,11 +40,11 @@
                 		</div>
                 		<div class="col-sm-12 col-md-5">
                 		
-                		<%-- <%
-                		get message
+                		<%
+                		// get message
                 			/* message msg=0|1|2|3|4 */
-                			MessageUtils.getMessage(request, out);
-                		%> --%>
+                			MessageUtil.getMessage(request, out);
+                		%>
                 		</div>
 	                	<div class="col-sm-12 col-md-5">
 	                		<form action="<%=request.getContextPath()%>/admin/category/search" method="post" class="d-flex input-group" id="search-form">
@@ -90,15 +91,15 @@
 		                  					for (Category itemCategory : listCategories) {
 		                  			%>
 		                  			<tr role="row" class="odd">
-					                    <td class="sorting_1"><%=itemCategory.getId()%></td>
+					                    <td class="text-center"><%=itemCategory.getId()%></td>
 					                  	 <td class="text-center"><%=itemCategory.getName()%></td>
-					                    <td>
+					                    <td class="text-center">
 					                    	<div>
 											<a href="<%=request.getContextPath()%>/admin/category/edit?page=<%=currentPage%>&id=<%=itemCategory.getId()%>" class="btn btn-info">
-								          		<i class="fas fa-edit"></i>Edit</a>
+								          		<i class="fas fa-edit"></i></a>
 											<a href="<%=request.getContextPath()%>/admin/category/del?page=<%=currentPage%>&id=<%=itemCategory.getId()%>" class="btn btn-danger"
 												onclick="return confirm('Are you want to delete <%=itemCategory.getName()%>?')">
-								          		<i class="fas fa-trash-alt"></i>Delete</a>
+								          		<i class="fas fa-trash-alt"></i></a>
 								          	</div>
 										</td>
 		                   			</tr>
@@ -233,9 +234,6 @@
 
         <%@ include file="/template/admin/inc/footer.jsp" %>
         <%@ include file="/template/admin/inc/script.jsp" %>
-        <script>
-		$('title').html('Category');
-		</script>
         <!-- code script here -->
         <script>document.getElementById('category').classList.add('active');</script>
         
