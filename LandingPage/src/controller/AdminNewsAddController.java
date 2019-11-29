@@ -16,8 +16,10 @@ import com.sun.javafx.geom.AreaOp.CAGOp;
 
 import model.bean.Category;
 import model.bean.News;
+import model.bean.User;
 import model.service.CategoryService;
 import model.service.NewsService;
+import util.AuthUtil;
 import util.DefineUtil;
 import util.FileUtil;
 
@@ -35,7 +37,6 @@ public class AdminNewsAddController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		ArrayList<Category> listCat = categoryService.getAllListCat();
 		request.setAttribute("listCat", listCat);
 		RequestDispatcher rd = request.getRequestDispatcher("/admin/news/add.jsp");
@@ -44,8 +45,6 @@ public class AdminNewsAddController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// get param in form
-
 		String name = request.getParameter("name");
 		int catId = 0;
 		double area = 0d, cost = 0d;
@@ -57,7 +56,6 @@ public class AdminNewsAddController extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + "/notFound");
 			return;
 		}
-		// get userLogin id = 3
 		String description = request.getParameter("description");
 		String detail = request.getParameter("detail");
 		String address = request.getParameter("address");
@@ -70,7 +68,13 @@ public class AdminNewsAddController extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + "/notFound");
 			return;
 		}
-		News news = new News(0, name, description, detail, address, fileName, 0, cost, null, category, area, 3);
+		User userLogin = AuthUtil.getUserLogin(request);
+		if (userLogin == null) {
+			response.sendRedirect(request.getContextPath() + "/notFound");
+			return;
+		}
+		News news = new News(0, name, description, detail, address, fileName, 0, cost, null, category, area,
+				userLogin.getId());
 		if (newsService.insertItem(news) > 0) {
 			// handle upload file if
 			if (!"".equals(fileName)) {
@@ -81,7 +85,6 @@ public class AdminNewsAddController extends HttpServlet {
 				}
 				part.write(dirPath + File.separator + fileName);
 			}
-
 			response.sendRedirect(request.getContextPath() + "/admin/news/index?msg=1");
 			return;
 		} else {
@@ -89,7 +92,5 @@ public class AdminNewsAddController extends HttpServlet {
 			rd.forward(request, response);
 			return;
 		}
-
 	}
-
 }

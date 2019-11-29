@@ -1,0 +1,64 @@
+.myfooter {
+	padding: 10px !important;
+	min-height: 50px !important;
+}
+
+.background {
+	background-color: #ff5d7d00 !important;
+}
+
+#background {
+	background-image: url('../img/top-post2.jpg');
+}
+
+.contact-page-area .address-wrap .single-contact-address h5,
+	.title-prolfe {
+	color: #292E34;
+	font-family: Montserrat;
+	font-size: 16px;
+	font-weight: bold;
+	line-height: 19px !important;
+	margin-left: 15px !important;
+}
+
+.img-profile img {
+	box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 6px rgba(0, 0, 0, 0.12)
+		!important;
+	border-style: solid;
+	border-color: #ffffff;
+}
+
+.img-profile {
+	width: 82px;
+	height: 82px;
+	margin-left: 44px;
+}
+
+.fullname {
+	color: #292E34;
+	font-family: Montserrat;
+	font-size: 22px;
+	line-height: 20px;
+	margin-top: 15px;
+}
+
+.email-profile {
+	color: #292E34;
+	font-family: Montserrat;
+	font-size: 16px;
+	line-height: 22px;
+	margin-top: 12px;
+}
+
+.edit-profile {
+	margin-left: 10px;
+}
+
+.edit-profile, p {
+	display: inline;
+	margin-left: 4px;
+	color: #292E34;
+	font-family: Montserrat;
+	font-size: 16px;
+	line-height: 22px;
+}

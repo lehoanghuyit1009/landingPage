@@ -1,3 +1,4 @@
+<%@page import="util.AuthUtil"%>
 <%@page import="util.StringUtil"%>
 <%@page import="model.bean.Category"%>
 <%@page import="java.util.ArrayList"%>
@@ -38,13 +39,7 @@
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/template/public/css/owl.carousel.css">
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/template/public/css/jquery-ui.css">
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/template/public/css/main.css">
-		<style type="text/css">
-			.myfooter{
-				padding: 10px !important;
-    			min-height: 50px !important;
-			}
-		
-		</style>
+		<link rel="stylesheet" href="<%=request.getContextPath()%>/template/public/css/style.css">
 		
 	</head>
 	<body>
@@ -63,23 +58,28 @@
 						<div class="col-lg-6 col-md-6 col-sm-6 col-6 header-top-right no-padding">
 							<ul class="nav-menu d-flex justify-content-end">
 								<li><a href="<%=request.getContextPath()%>/contact">Contact</a></li>
-								<li><a title="Logout " href="<%=request.getContextPath()%>/logout">ADMIN
-									<i class="fa fa-user-circle" style="font-size: 13px;"></i>
-								</a></li>
-								<%-- <%
-									User userLogin = AuthUtil.getUserLoginPublic(request);
-									if (userLogin == null) {
+								<%
+									if (AuthUtil.getUserLoginPublic(request) == null) {
 								%>
 								<li><a href="<%=request.getContextPath()%>/login">Login</a></li>
 								<%
 									} else {
+										User userLogin = AuthUtil.getUserLoginPublic(request);
+										String admin="";
+										if(userLogin.getRole().getId() ==3)
+												admin="profile";
+										else
+											admin="admin";
 								%>
-								<li><a title="Logout <%=userLogin.getUsername()%>" href="<%=request.getContextPath()%>/logout"><%=userLogin.getUsername()%>
+								<li>
 									<i class="fa fa-user-circle" style="font-size: 13px;"></i>
+									<a title="Admin page <%=userLogin.getFullname()%>" href="<%=request.getContextPath()%>/<%=admin%>"><%=userLogin.getFullname()%></a>
+								</li>
+								<li><a title="Logout <%=userLogin.getFullname()%>" href="<%=request.getContextPath()%>/logout">Logout
 								</a></li>
 								<%
 									}
-								%> --%>
+								%>
 							</ul>
 						</div>
 					</div>
@@ -120,8 +120,13 @@
 						</ul>
 					</nav><!-- #nav-menu-container -->
 					<div class="navbar-right">
-						<form class="Search" method="post" action="<%=request.getContextPath()%>/search">
-							<input type="text" class="form-control Search-box" name="name" id="Search-box" placeholder="Search" />
+						<%
+							String search ="";
+							if(request.getParameter("name")!= null)
+								search +=request.getParameter("name");
+						%>
+						<form class="Search" method="get" action="<%=request.getContextPath()%>/search">
+							<input type="text" class="form-control Search-box" value="<%=search%>" name="name" id="Search-box" placeholder="Search" />
 							<label for="Search-box" class="Search-box-label">
 								<span class="lnr lnr-magnifier"></span>
 							</label>

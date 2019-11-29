@@ -99,4 +99,12 @@ public class NewsService {
 		return newsDAO.getItemsByCatIdPagination(id, offset);
 	}
 
+	public int countItemsSearch(String name) {
+		return newsDAO.countItemsSearch(name);
+	}
+
+	public ArrayList<News> getItemsSearch(String name, int offset) {
+		return newsDAO.getItemsSearch(name, offset);
+	}
+
 }

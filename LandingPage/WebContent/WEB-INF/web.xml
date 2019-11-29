@@ -201,6 +201,38 @@
 		<url-pattern>/category</url-pattern>
 	</servlet-mapping>
 	<servlet>
+		<servlet-name>PublicSearchController</servlet-name>
+		<servlet-class>controller.PublicSearchController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PublicSearchController</servlet-name>
+		<url-pattern>/search</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>PublicProfileController</servlet-name>
+		<servlet-class>controller.PublicProfileController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PublicProfileController</servlet-name>
+		<url-pattern>/profile</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>AuthLoginController</servlet-name>
+		<servlet-class>controller.AuthLoginController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AuthLoginController</servlet-name>
+		<url-pattern>/login</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>AuthLogoutController</servlet-name>
+		<servlet-class>controller.AuthLogoutController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AuthLogoutController</servlet-name>
+		<url-pattern>/logout</url-pattern>
+	</servlet-mapping>
+	<servlet>
 		<servlet-name>NotFound404</servlet-name>
 		<servlet-class>controller.NotFound404</servlet-class>
 	</servlet>
@@ -257,4 +289,21 @@
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 	</filter-mapping>
+	<filter>
+		<filter-name>AdminFilter</filter-name>
+		<filter-class>filter.AdminFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>AdminFilter</filter-name>
+		<url-pattern>/admin/*</url-pattern>
+	</filter-mapping>
+	<filter>
+		<filter-name>ProfileFilter</filter-name>
+		<filter-class>filter.ProfileFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>ProfileFilter</filter-name>
+		<url-pattern>/profile</url-pattern>
+	</filter-mapping>
+
 </web-app>

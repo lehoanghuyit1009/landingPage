@@ -49,4 +49,8 @@ public class UserService {
 		return userDAO.delItem(id);
 	}
 
+	public User getItemByUsernamePasswordActive(String username, String password) {
+		return userDAO.getItemByUsernamePasswordActive(username, password);
+	}
+
 }

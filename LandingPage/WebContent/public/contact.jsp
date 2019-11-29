@@ -7,9 +7,9 @@
 			<!-- Start top-post Area -->
 			<section class="top-post-area pt-10">
 				<div class="container no-padding">
-					<div class="row">
-						<div class="col-lg-12">
-							<div class="hero-nav-area">
+					<div class="row no-margin">
+						<div class="col-lg-12" id="background">
+							<div class="hero-nav-area background">
 								<h1 class="text-white">Contact Us</h1>
 								<p class="text-white link-nav"><a href="index.html">Home </a>  <span class="lnr lnr-arrow-right"></span><a href="contact.html">Contact Us </a></p>
 							</div>
@@ -70,18 +70,16 @@
 										<textarea name="message" class="common-textarea form-control" placeholder="Enter Messege" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Messege'" required="required"></textarea>
 									</div>
 									<div class="col-lg-12">
-										<div class="alert-msg alert alert-warning" style="text-align: left;">
 											<%
 												if(request.getParameter("msg")!=null){
 													String msg =request.getParameter("msg");
 													if("1".equals(msg)){
-														out.print("Send contact successfully");
+														out.print("<div class='alert-msg alert alert-info' style='text-align: left;'>Send contact successfully</div>");
 													}else{
-														out.print("Have an error !");
+														out.print("<div class='alert-msg alert alert-warning' style='text-align: left;'>Have an error !</div>");
 													}
 												}
 											%>
-										</div>
 										<button class="primary-btn primary" type="submit" style="float: right;">Send Message</button>
 									</div>
 								</div>
