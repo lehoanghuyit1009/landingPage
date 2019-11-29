@@ -148,7 +148,7 @@
                				<div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
                					<ul class="pagination">
 	               					<%
-	                              		String href = request.getContextPath() + "/admin/slide/index?page=";
+	                              		String href = request.getContextPath() + "/admin/contact/index?page=";
 	                              	%>
 	                              	<!-- Xử lí nut previous -->
                						<li class="paginate_button page-item previous <%if(currentPage == 1) out.print("disabled");%>" id="dataTable_previous">

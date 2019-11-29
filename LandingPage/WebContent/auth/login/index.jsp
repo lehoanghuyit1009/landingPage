@@ -40,16 +40,16 @@
 					</span>
 				</div>
 
-				<form class="login100-form validate-form">
+				<form class="login100-form validate-form" method="post">
 					<div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
 						<span class="label-input100">Username</span>
-						<input class="input100" type="text" name="username" placeholder="Enter username">
+						<input class="input100" type="text" name="username" required="required" placeholder="Enter username">
 						<span class="focus-input100"></span>
 					</div>
 
 					<div class="wrap-input100 validate-input m-b-18" data-validate = "Password is required">
 						<span class="label-input100">Password</span>
-						<input class="input100" type="password" name="pass" placeholder="Enter password">
+						<input class="input100" type="password" name="password" required="required" placeholder="Enter password">
 						<span class="focus-input100"></span>
 					</div>
 
@@ -60,16 +60,24 @@
 								Remember me
 							</label>
 						</div>
-
 						<div>
 							<a href="#" class="txt1">
 								Forgot Password?
 							</a>
 						</div>
 					</div>
-
+					<%
+						if(request.getParameter("msg")!=null){
+							String msg =request.getParameter("msg");
+							if("1".equals(msg)){
+								out.print("<div class='alert-msg alert alert-info' style='text-align: left;'>Send contact successfully</div>");
+							}else{
+								out.print("<div class='alert-msg alert alert-warning' style='text-align: left;'>Have an error !</div>");
+							}
+						}
+					%>
 					<div class="container-login100-form-btn">
-						<button class="login100-form-btn">
+						<button type="submit" class="login100-form-btn">
 							Login
 						</button>
 					</div>

@@ -32,7 +32,8 @@ public class AppFilterPublicSlide implements Filter {
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 		String uri = httpServletRequest.getRequestURI();
 		if ("/LandingPage/".equals(uri) || uri.startsWith("/LandingPage/category/")
-				|| uri.startsWith("/LandingPage/detail/") || uri.startsWith("/LandingPage/contact")) {
+				|| uri.startsWith("/LandingPage/search") || uri.startsWith("/LandingPage/detail/")
+				|| uri.startsWith("/LandingPage/contact") || uri.startsWith("/LandingPage/profile")) {
 			SlideService slideService = new SlideService();
 			ArrayList<Slide> listSlideShow = slideService.getItems(DefineUtil.NUMBER_SLIDE);
 			httpServletRequest.setAttribute("listSlideShow", listSlideShow);

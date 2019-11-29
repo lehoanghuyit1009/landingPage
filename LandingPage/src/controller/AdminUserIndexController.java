@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.bean.User;
 import model.service.UserService;
+import util.AuthUtil;
 import util.DefineUtil;
 
 public class AdminUserIndexController extends HttpServlet {
@@ -58,19 +59,32 @@ public class AdminUserIndexController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		User userLogin = AuthUtil.getUserLogin(request);
+
 		PrintWriter out = response.getWriter();
 		int trangthai = Integer.parseInt(request.getParameter("atrangthai"));
 		int id = Integer.parseInt(request.getParameter("aid"));
-		if (trangthai == 1) {
-			trangthai = 0;
-			out.print("<a href=\"javascript:void(0)\" onclick=\"return getActive(0," + id + ")\">" + "<img src=\""
-					+ request.getContextPath() + "/template/admin/images/deactive.gif\" />" + "</a>");
+		if (userLogin.getId() != id && userLogin.getRole().getId() == 1) {
+			if (trangthai == 1) {
+				trangthai = 0;
+				out.print("<a href=\"javascript:void(0)\" onclick=\"return getActive(0," + id + ")\">" + "<img src=\""
+						+ request.getContextPath() + "/template/admin/images/deactive.gif\" />" + "</a>");
+			} else {
+				trangthai = 1;
+				out.print("<a href=\"javascript:void(0)\" onclick=\"return getActive(1," + id + ")\">" + "<img src=\""
+						+ request.getContextPath() + "/template/admin/images/active.gif\" />" + "</a>");
+			}
+			userService.upDateActive(trangthai, id);
 		} else {
-			trangthai = 1;
-			out.print("<a href=\"javascript:void(0)\" onclick=\"return getActive(1," + id + ")\">" + "<img src=\""
-					+ request.getContextPath() + "/template/admin/images/active.gif\" />" + "</a>");
+			if (trangthai == 0) {
+				out.print("<a href=\"javascript:void(0)\" onclick=\"return getActive(0," + id + ")\">" + "<img src=\""
+						+ request.getContextPath() + "/template/admin/images/deactive.gif\" />" + "</a>");
+			} else {
+				out.print("<a href=\"javascript:void(0)\" onclick=\"return getActive(1," + id + ")\">" + "<img src=\""
+						+ request.getContextPath() + "/template/admin/images/active.gif\" />" + "</a>");
+			}
 		}
-		userService.upDateActive(trangthai, id);
+
 	}
 
 }

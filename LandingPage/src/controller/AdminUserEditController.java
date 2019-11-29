@@ -14,6 +14,7 @@ import model.bean.Slide;
 import model.bean.User;
 import model.service.RoleService;
 import model.service.UserService;
+import util.AuthUtil;
 import util.StringUtil;
 
 public class AdminUserEditController extends HttpServlet {
@@ -29,6 +30,7 @@ public class AdminUserEditController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		User userLogin = AuthUtil.getUserLogin(request);
 		ArrayList<Role> listRole = roleService.getListRole();
 		request.setAttribute("listRole", listRole);
 		int currentPage = 1, id = 0;
@@ -39,14 +41,22 @@ public class AdminUserEditController extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + "/notFound");
 			return;
 		}
-		User user = userService.getItemById(id);
-		if (user == null) {
-			response.sendRedirect(request.getContextPath() + "/admin/user/index?msg=0&page=" + currentPage);
-			return;
+		// neu khong phai chinh id hoac k phai admin k dc sua
+
+		if (userLogin.getId() == id || userLogin.getRole().getId() == 1) {
+			User user = userService.getItemById(id);
+			if (user == null) {
+				response.sendRedirect(request.getContextPath() + "/admin/user/index?msg=0&page=" + currentPage);
+				return;
+			}
+			request.setAttribute("user", user);
+			RequestDispatcher rd = request.getRequestDispatcher("/admin/user/edit.jsp");
+			rd.forward(request, response);
+
+		} else {
+			response.sendRedirect(request.getContextPath() + "/notFound");
 		}
-		request.setAttribute("user", user);
-		RequestDispatcher rd = request.getRequestDispatcher("/admin/user/edit.jsp");
-		rd.forward(request, response);
+
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -59,36 +69,43 @@ public class AdminUserEditController extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + "/notFound");
 			return;
 		}
-		User user = userService.getItemById(id);
-		if (user == null) {
-			response.sendRedirect(request.getContextPath() + "/admin/user/index?msg=0&page=" + currentPage);
-			return;
-		}
-		String fullname = request.getParameter("fullname");
-		String password = request.getParameter("password");
-		String email = request.getParameter("email");
-		int rid = 0;
-		try {
-			rid = Integer.parseInt(request.getParameter("role"));
-		} catch (Exception e) {
-			response.sendRedirect(request.getContextPath() + "/notFound");
-			return;
-		}
-		Role role = roleService.getRoleById(rid);
-		if (role == null) {
-			response.sendRedirect(request.getContextPath() + "/notFound");
-			return;
-		}
-		password = StringUtil.md5(password);
-		user.setEmail(email);
-		user.setFullname(fullname);
-		user.setPassword(password);
-		user.setRole(role);
-		if (userService.editItem(user) > 0) {
-			response.sendRedirect(request.getContextPath() + "/admin/user/index?msg=2");
+		User userLogin = AuthUtil.getUserLogin(request);
+		if (userLogin.getId() == id || userLogin.getRole().getId() == 1) {
+			User user = userService.getItemById(id);
+			if (user == null) {
+				response.sendRedirect(request.getContextPath() + "/");
+				return;
+			}
+			String fullname = request.getParameter("fullname");
+			String password = request.getParameter("password");
+			String email = request.getParameter("email");
+			int rid = 0;
+			try {
+				rid = Integer.parseInt(request.getParameter("role"));
+			} catch (Exception e) {
+				response.sendRedirect(request.getContextPath() + "/notFound");
+				return;
+			}
+			Role role = roleService.getRoleById(rid);
+			if (role == null) {
+				response.sendRedirect(request.getContextPath() + "/notFound");
+				return;
+			}
+			password = StringUtil.md5(password);
+			user.setEmail(email);
+			user.setFullname(fullname);
+			user.setPassword(password);
+			if (userLogin.getRole().getId() == 1) {
+				user.setRole(role);
+			}
+			if (userService.editItem(user) > 0) {
+				response.sendRedirect(request.getContextPath() + "/admin/user/index?msg=2");
+			} else {
+				RequestDispatcher rd = request.getRequestDispatcher("/admin/user/edit.jsp?msg=1");
+				rd.forward(request, response);
+			}
 		} else {
-			RequestDispatcher rd = request.getRequestDispatcher("/admin/user/edit.jsp?msg=1");
-			rd.forward(request, response);
+			response.sendRedirect(request.getContextPath() + "/notFound");
 		}
 	}
 

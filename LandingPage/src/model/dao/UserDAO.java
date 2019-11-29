@@ -181,4 +181,23 @@ public class UserDAO {
 		}
 		return result;
 	}
+
+	public User getItemByUsernamePasswordActive(String username, String password) {
+		String sql = "SELECT u.*,r.* FROM user as u INNER JOIN role as r ON r.id = u.role WHERE u.username=? AND password =? AND enable=1";
+		conn = DBConnection.getConnection();
+		try {
+			pst = conn.prepareStatement(sql);
+			pst.setString(1, username);
+			pst.setString(2, password);
+			rs = pst.executeQuery();
+			if (rs.next()) {
+				return new User(rs.getInt("id"), rs.getString("username"), rs.getString("fullname"),
+						rs.getString("password"), rs.getString("email"),
+						new Role(rs.getInt("role"), rs.getString("name")), rs.getInt("enable"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

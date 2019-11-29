@@ -54,7 +54,7 @@ public class PublicDetailController extends HttpServlet {
 			}
 		}
 		if (check) {
-			newsService.increaseView(id, news.getViews());
+			newsService.increaseView(id, news.getViews() + 1);
 			Cookie cookie = new Cookie("itemNews-" + news.getId(), news.getId() + "");
 			cookie.setMaxAge(60 * 60);
 			response.addCookie(cookie);
