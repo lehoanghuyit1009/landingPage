@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.bean.Category;
+import model.bean.Comment;
 import model.bean.News;
 import model.bean.Slide;
 import model.service.CategoryService;
@@ -47,10 +48,12 @@ public class PublicDetailController extends HttpServlet {
 		}
 		Cookie[] cookies = request.getCookies();
 		boolean check = true;
-		for (Cookie cookie : cookies) {
-			if (cookie.getName().equals("itemNews-" + news.getId()) && cookie.getMaxAge() != 0) {
-				check = false;
-				break;
+		if (cookies != null) {
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().equals("itemNews-" + news.getId()) && cookie.getMaxAge() != 0) {
+					check = false;
+					break;
+				}
 			}
 		}
 		if (check) {
@@ -69,7 +72,14 @@ public class PublicDetailController extends HttpServlet {
 		request.setAttribute("listCountComment", listCountComment);
 		request.setAttribute("listRelate", listRelate);
 		request.setAttribute("listUserName", listUserName);
-
+		ArrayList<Comment> listComment = commentService.getListCommentByNid(id, 0);
+		request.setAttribute("listComment", listComment);
+		HashMap<Integer, ArrayList<Comment>> listChildComment = commentService.getListChildComment(listComment);
+		request.setAttribute("listChildComment", listChildComment);
+		HashMap<Integer, String> listUserNameComment= commentService.getlistUserNameComment(id);
+		request.setAttribute("listUserNameComment", listUserNameComment);
+		HashMap<Integer, Integer> listCountCommentRelate = commentService.getListCountComment(listRelate);
+		request.setAttribute("listCountCommentRelate", listCountCommentRelate);
 		RequestDispatcher rd = request.getRequestDispatcher("/public/detail.jsp");
 		rd.forward(request, response);
 	}

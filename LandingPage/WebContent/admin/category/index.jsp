@@ -47,7 +47,7 @@
                 		%>
                 		</div>
 	                	<div class="col-sm-12 col-md-5">
-	                		<form action="<%=request.getContextPath()%>/admin/category/search" method="post" class="d-flex input-group" id="search-form">
+	                		<form action="<%=request.getContextPath()%>/admin/category/search" method="get" class="d-flex input-group" id="search-form">
 	                			<%
 	                				String name = "";
 	                				if (request.getParameter("name") != null) {

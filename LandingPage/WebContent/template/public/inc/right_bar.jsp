@@ -1,3 +1,4 @@
+<%@page import="java.util.HashMap"%>
 <%@page import="util.StringUtil"%>
 <%@page import="util.DateUtil"%>
 <%@page import="model.bean.News"%>
@@ -16,6 +17,7 @@
 				if(request.getAttribute("listRelate")!=null){
 					ArrayList<News> listRelate = (ArrayList<News>)request.getAttribute("listRelate");
 					if (listRelate != null && listRelate.size() > 0) { 
+						HashMap<Integer,Integer> listCountCommentRelate = (HashMap<Integer,Integer>)request.getAttribute("listCountCommentRelate");
 						for (News item : listRelate) {
 			%>
 			<div class="single-list flex-row d-flex">
@@ -28,7 +30,7 @@
 					</a>
 					<ul class="meta">
 						<li><a href="#"><span class="lnr lnr-calendar-full"></span><%=DateUtil.getDateFormat(item.getDateCreate())%></a></li>
-						<li><a href="#"><span class="lnr lnr-bubble"></span>06</a></li>
+						<li><a href="#"><span class="lnr lnr-bubble"></span><%=listCountCommentRelate.get(item.getId()) %></a></li>
 					</ul>
 				</div>
 			</div>
@@ -47,6 +49,7 @@
 				if(request.getAttribute("listPopular")!=null){
 					ArrayList<News> listPopular = (ArrayList<News>)request.getAttribute("listPopular");
 					if (listPopular != null && listPopular.size() > 0) { 
+						HashMap<Integer,Integer> listCountCommentPopular = (HashMap<Integer,Integer>)request.getAttribute("listCountCommentPopular");
 						for (News itemNews : listPopular) {
 			%>
 			<div class="single-list flex-row d-flex">
@@ -59,7 +62,7 @@
 					</a>
 					<ul class="meta">
 						<li><a href="#"><span class="lnr lnr-calendar-full"></span><%=DateUtil.getDateFormat(itemNews.getDateCreate())%></a></li>
-						<li><a href="#"><span class="lnr lnr-bubble"></span>06</a></li>
+						<li><a href="#"><span class="lnr lnr-bubble"></span><%=listCountCommentPopular.get(itemNews.getId()) %></a></li>
 					</ul>
 				</div>
 			</div>

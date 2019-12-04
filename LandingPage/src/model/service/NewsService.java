@@ -107,4 +107,32 @@ public class NewsService {
 		return newsDAO.getItemsSearch(name, offset);
 	}
 
+	public int countItems(int id) {
+		return newsDAO.countItems(id);
+	}
+
+	public ArrayList<News> getListNews(int offset, int id) {
+		return newsDAO.getListNews(offset, id);
+	}
+
+	public News getItemByIdAndUid(int id, int uid) {
+		return newsDAO.getItemByIdAndUid(id, uid);
+	}
+
+	public int countItems(String name) {
+		return newsDAO.countItemsSearch(name);
+	}
+
+	public ArrayList<News> getListNews(int offset, int id, String name) {
+		return newsDAO.getListNews(offset, id, name);
+	}
+
+	public int countItems(int id, String name) {
+		return newsDAO.countItems(id, name);
+	}
+
+	public ArrayList<News> getListNewsSearch(int offset, String name) {
+		return newsDAO.getListNewsSearch(offset, name);
+	}
+
 }

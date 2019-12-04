@@ -142,4 +142,44 @@ public class CategoryDAO {
 			DBConnection.close(rs, pst, conn);
 		}
 	}
+
+	public int countItemsSearch(String name) {
+		int result = 0;
+		conn = DBConnection.getConnection();
+		String sql = "SELECT COUNT(*) as count FROM category WHERE name like ?";
+		try {
+			pst = conn.prepareStatement(sql);
+			pst.setString(1, "%" + name + "%");
+			rs = pst.executeQuery();
+			if (rs.next()) {
+				result = rs.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnection.close(rs, st, conn);
+		}
+		return result;
+	}
+
+	public ArrayList<Category> getItemsSearch(String name, int offset) {
+		ArrayList<Category> listCat = new ArrayList<>();
+		conn = DBConnection.getConnection();
+		String sql = "SELECT * FROM category WHERE name like ? ORDER BY id DESC LIMIT ?,?";
+		try {
+			pst = conn.prepareStatement(sql);
+			pst.setString(1, "%" + name + "%");
+			pst.setInt(2, offset);
+			pst.setInt(3, DefineUtil.NUMBER_PER_PAGE);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				listCat.add(new Category(rs.getInt("id"), rs.getString("name")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnection.close(rs, pst, conn);
+		}
+		return listCat;
+	}
 }

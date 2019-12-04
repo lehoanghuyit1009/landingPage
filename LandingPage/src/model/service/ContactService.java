@@ -40,4 +40,12 @@ public class ContactService {
 		return contactDAO.delItem(id);
 	}
 
+	public int countItemsSearch(String name) {
+		return contactDAO.countItemsSearch(name);
+	}
+
+	public ArrayList<Contact> getItemsSearch(String name, int offset) {
+		return contactDAO.getItemsSearch(name, offset);
+	}
+
 }

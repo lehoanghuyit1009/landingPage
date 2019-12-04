@@ -486,40 +486,6 @@ $window.scroll(function() {
         });
     }
 });*/
-    
- /* Xử lí nut reply trong comment */
-function reply(listCommentId, replyUserName) {
-	$('.comment-reply-' + listCommentId).show();
-	$('.comment-reply-' + listCommentId + ' textarea').val(replyUserName + "|   ").focus();
-};
-
-
-/* ajax comment ở detail.jsp  */
-//var website = "/shareit";
-var website = "";
-function upComment(newsId, parentCommentId, userCommentId) {
-	//console.log(newsId + "-" + parentCommentId + "-" + userCommentId);
-	//console.log($('.comment-reply-' + parentCommentId + ' textarea').val());
-	$.ajax({
-		type: "post",
-		/* doPost PublicAddCommentController */
-	    url: website + "/comment",
-	    data: {
-	    	newsId: newsId,
-	    	parentCommentId: parentCommentId,
-	    	userCommentId: userCommentId,
-	    	content: $('.comment-reply-' + parentCommentId + ' textarea').val()
-	    },
-	    dataType: "html",
-	    success: function (response) {
-	    	$('.comment-reply-' + parentCommentId).before(response);
-	    	$('.comment-reply-' + parentCommentId + ' textarea').val('');
-	    },
-	    error: function() {
-	    	console.log('lỗi ajax add comment');
-	    }
-	});
-};
 
 
 

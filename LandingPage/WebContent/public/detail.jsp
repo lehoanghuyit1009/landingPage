@@ -1,3 +1,4 @@
+<%@page import="util.DefineUtil"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Date"%>
 <%@page import="model.dao.CommentDAO"%>
@@ -11,6 +12,9 @@
 		<%
 			if(request.getAttribute("news")!= null){
 				News news = (News)request.getAttribute("news");
+				User userLogin = null;
+				if(session.getAttribute(DefineUtil.USER_LOGIN) != null)
+					userLogin = (User)session.getAttribute(DefineUtil.USER_LOGIN);
 		%>
 		<div class="site-main-container">
 			<%@ include file="/template/public/inc/slide.jsp" %>
@@ -46,16 +50,27 @@
 									<!-- <blockquote></blockquote> -->
 								
 								
-								<%-- <div class="comment-sec-area">
+								<div class="comment-sec-area mycomment-area">
 									<div class="container">
 										<div class="row flex-column">
-											
 											<%
-												@SuppressWarnings("unchecked")
-												ArrayList<Comment> listComments = (ArrayList<Comment>) request.getAttribute("listComments");
-												if (listComments != null && listComments.size() > 0) {
+												if(userLogin == null){
 											%>
-											<h6>Comments</h6>
+												<div class="alert alert-warning">
+													<h5><a href="<%=request.getContextPath()%>/login">Login to comment this post</a></h5>
+												</div>
+											<%
+												}
+												if(request.getAttribute("listComment") != null){
+												ArrayList<Comment> listComments = (ArrayList<Comment>) request.getAttribute("listComment");
+												HashMap<Integer,String> listUserNameComment = (HashMap<Integer,String>)request.getAttribute("listUserNameComment");
+												if (listComments != null && listComments.size() > 0) {
+													HashMap<Integer, ArrayList<Comment>> listChildComment = (HashMap<Integer, ArrayList<Comment>>)request.getAttribute("listChildComment");
+													
+											%>
+											<div class="header-comment">
+												<h5>Comments</h5>
+											</div>
 											<%
 													for (Comment itemComment : listComments) {  
 											%>
@@ -64,10 +79,10 @@
 													<div class="single-comment justify-content-between d-flex">
 														<div class="user justify-content-between d-flex">
 															<div class="thumb">
-																<i class="fa fa-user"></i>
+																<i class="fa fa-user icon-color"></i>
 															</div>
 															<div class="desc">
-																<h5><a href="#"><%=userDAO.getItem(itemComment.getUserId()).getUsername()%></a></h5>
+																<h5><a href="#"><%=listUserNameComment.get(itemComment.getIdUser()) %></a></h5>
 																<p class="date"><%=DateUtil.getDateFormatDetail(itemComment.getDateCreate())%> </p>
 																<p class="comment">
 																	<%=itemComment.getContent()%>
@@ -75,24 +90,24 @@
 															</div>
 														</div>
 														<div class="reply-btn">
-															<a onclick="return reply(<%=itemComment.getId()%>, '<%=userDAO.getItem(itemComment.getUserId()).getUsername()%>')" href="javascript:void(0)" class="btn-reply text-uppercase">reply</a>
+															<a onclick="return reply( <%=itemComment.getId()%>, '<%=listUserNameComment.get(itemComment.getIdUser())%> ')" href="javascript:void(0)" class="btn btn-info text-uppercase">reply</a>
 														</div>
 													</div>
 												</div>
 												<%
 														//một khối comment đặt trong <div class="comment-list-wrapper"> rồi trong cái này có thêm các comment con nữa
-														ArrayList<Comment> list = new CommentDAO().getActiveItemsByCommentParentIdOfNewsAll(itemComment.getId(), news.getId());
+														ArrayList<Comment> list = listChildComment.get(itemComment.getId());
 														for (Comment item : list) {
-															String className = item.getParentId() == 0 ? "" : "left-padding";
+															String className = item.getId_parent() == 0 ? "" : "left-padding";
 												%>
 												<div class="comment-list <%=className%>">
 													<div class="single-comment justify-content-between d-flex">
 														<div class="user justify-content-between d-flex">
 															<div class="thumb">
-																<i class="fa fa-user"></i>
+																<i class="fa fa-user icon-color"></i>
 															</div>
 															<div class="desc">
-																<h5><a href="#"><%=userDAO.getItem(item.getUserId()).getUsername()%></a></h5>
+																<h5><a href="#"><%=listUserNameComment.get(item.getIdUser()) %></a></h5>
 																<p class="date"><%=DateUtil.getDateFormatDetail(item.getDateCreate())%> </p>
 																<p class="comment">
 																	<%=item.getContent()%>
@@ -100,7 +115,7 @@
 															</div>
 														</div>
 														<div class="reply-btn">
-															<a onclick="return reply(<%=itemComment.getId()%>, '<%=userDAO.getItem(item.getUserId()).getUsername()%>')" href="javascript:void(0)" class="btn-reply text-uppercase">reply</a>
+															<a onclick="return reply(<%=itemComment.getId()%>, '<%=listUserNameComment.get(itemComment.getIdUser())%>')" href="javascript:void(0)" class="btn btn-info text-uppercase">reply</a>
 														</div>
 													</div>
 												</div>
@@ -111,26 +126,15 @@
 													<div class="single-comment">
 														<div class="user d-flex">
 															<div class="thumb">
-																<i class="fa fa-user"></i>
+																<i class="fa fa-user icon-color"></i>
 															</div>
 															<div class="desc" style="width: 100%">
-																<%
-																	if (userLogin != null) {
-																%>
-																<h5><a href="#"><%=userLogin.getUsername()%></a></h5>
-																<%
-																	} else {
-																%>
-																<h5><a href="<%=request.getContextPath()%>/login">Login to comment this post</a></h5>
-																<%		
-																	}
-																%>
 																<form class="row" action="javascript:void(0)">
 																	<div class="form-group col-sm-8">
-																    	<textarea class="form-control" id="" rows="3" name="comment" required="required"></textarea>
+																    	<input type="text" class="form-control myform-comment" name="comment" required="required" placeholder="Enter comment">
 																  	</div>
 																  	<div class="col-sm-4">
-																  		<button type="button" onclick="upComment(<%=news.getId()%>, <%=itemComment.getId()%>, <%if(userLogin == null) out.print("0"); else out.print(userLogin.getId()); %>)" class="btn btn-dark">Ok</button>
+																  		<button type="button" onclick="upComment(<%=news.getId()%>, <%=itemComment.getId() %>,<%if(userLogin == null) out.print("0"); else out.print(userLogin.getId()); %>)"  class="btn btn-info">Send</button>
 																  	</div>
 																</form>
 															</div>
@@ -148,26 +152,16 @@
 													<div class="single-comment">
 														<div class="user d-flex">
 															<div class="thumb">
-																<i class="fa fa-user"></i>
+																<i class="fa fa-user icon-color"></i>
 															</div>
 															<div class="desc" style="width: 100%">
-																<%
-																	if (userLogin != null) {
-																%>
-																<h5><a href="#"><%=userLogin.getUsername()%></a></h5>
-																<%
-																	} else {
-																%>
-																<h5><a href="<%=request.getContextPath()%>/login">Login to comment this post</a></h5>
-																<%		
-																	}
-																%>
 																<form class="row" action="javascript:void(0)">
 																	<div class="form-group col-sm-8">
-																    	<textarea class="form-control" id="" rows="3" name="comment" required="required"></textarea>
+																		<input type="text" class="form-control myform-comment" name="comment" required="required" placeholder="Enter comment">
+																    	<!-- <textarea class="form-control myform-comment" name="comment" required="required"></textarea> -->
 																  	</div>
 																  	<div class="col-sm-4">
-																  		<button type="button" onclick="upComment(<%=news.getId()%>, 0, <%if(userLogin == null) out.print("0"); else out.print(userLogin.getId()); %>)" class="btn btn-dark">Ok</button>
+																  		<button type="button" onclick="upComment(<%=news.getId()%>, 0,<%if(userLogin == null) out.print("0"); else out.print(userLogin.getId()); %>)"  class="btn btn-info">Send</button>
 																  	</div>
 																</form>
 															</div>
@@ -179,32 +173,23 @@
 											<%
 												} else { /* Chưa có comment nào thì có ô textarea cho nó nhập */
 											%>
-											<h6>Comments</h6>
+											<div class="header-comment">
+												<h5>Comments</h5>
+											</div>
 											<div class="comment-list-wrapper-">
 												<div class="comment-list left-padding d-block comment-reply-0">
 													<div class="single-comment">
 														<div class="user d-flex">
-															<div class="thumb">
-																<i class="fa fa-user"></i>
+															<div class="thumb myicon">
+																<i class="fa fa-user icon-color"></i>
 															</div>
 															<div class="desc" style="width: 100%">
-																<%
-																	if (userLogin != null) {
-																%>
-																<h5><a href="#"><%=userLogin.getUsername()%></a></h5>
-																<%
-																	} else {
-																%>
-																<h5><a href="<%=request.getContextPath()%>/login">Login to comment this post</a></h5>
-																<%		
-																	}
-																%>
 																<form class="row" action="javascript:void(0)">
 																	<div class="form-group col-sm-8">
-																    	<textarea class="form-control" id="" rows="3" name="comment" required="required"></textarea>
+																    	<input type="text" class="form-control myform-comment" name="comment" required="required" placeholder="Enter comment">
 																  	</div>
 																  	<div class="col-sm-4">
-																  		<button type="button" onclick="upComment(<%=news.getId()%>, 0, <%if(userLogin == null) out.print("0"); else out.print(userLogin.getId()); %>)" class="btn btn-dark">Ok</button>
+																  		<button type="button" onclick="upComment(<%=news.getId()%>, 0, <%if(userLogin == null) out.print("0"); else out.print(userLogin.getId()); %>)"  class="btn btn-info">Send</button>
 																  	</div>
 																</form>
 															</div>
@@ -214,11 +199,12 @@
 												</div>
 											</div>
 											<%
+													}
 												}
 											%>
 										</div>
 									</div>
-								</div> --%>
+								</div>
 							</div>
 						</div>
 						<%
@@ -241,6 +227,34 @@
 	<script>
 	var x = $('.latest-post-area').offset().top - 122;
 	$("html, body").animate({ scrollTop: x }, 600);
+	function reply(listCommentId, replyUserName) {
+		$('.comment-reply-' + listCommentId).show();
+		$('.comment-reply-' + listCommentId + ' input').val(replyUserName + "|   ").focus();
+	};
+	function upComment(newsId, parentCommentId, userCommentId) {
+		//console.log(newsId + "-" + parentCommentId + "-" + userCommentId);
+		//console.log($('.comment-reply-' + parentCommentId + ' textarea').val());
+		$.ajax({
+			type: "post",
+			/* doPost PublicAddCommentController */
+		    url: '<%=request.getContextPath()%>/comment',
+		    data: {
+		    	newsId: newsId,
+		    	parentCommentId: parentCommentId,
+		    	userCommentId: userCommentId,
+		    	content: $('.comment-reply-' + parentCommentId + ' input').val()
+		    },
+		    dataType: "html",
+		    success: function (response) {
+		    	$('.comment-reply-' + parentCommentId).before(response);
+		    	$('.comment-reply-' + parentCommentId + ' input').val('');
+		    },
+		    error: function() {
+		    	console.log('lỗi ajax add comment');
+		    }
+		});
+	};
 	
+
 	</script>
 	<%@ include file="/template/public/inc/footer.jsp" %>

@@ -65,16 +65,23 @@
 								<%
 									} else {
 										User userLogin = AuthUtil.getUserLoginPublic(request);
-										String admin="";
-										if(userLogin.getRole().getId() ==3)
-												admin="profile";
-										else
-											admin="admin";
+										if(userLogin.getRole().getId() !=3){
 								%>
 								<li>
 									<i class="fa fa-user-circle" style="font-size: 13px;"></i>
-									<a title="Admin page <%=userLogin.getFullname()%>" href="<%=request.getContextPath()%>/<%=admin%>"><%=userLogin.getFullname()%></a>
+									<a title="Admin page <%=userLogin.getFullname()%>" href="<%=request.getContextPath()%>/admin"><%=userLogin.getFullname()%></a>
 								</li>
+								<%
+										}else{
+								%>
+								<li>
+									<i class="fa fa-user-circle" style="font-size: 13px;"></i>
+									<a title="Admin page <%=userLogin.getFullname()%>" href="<%=request.getContextPath()%>/admin"><%=userLogin.getFullname()%></a>
+								</li>
+								<li><a title="Profile <%=userLogin.getFullname()%>" href="<%=request.getContextPath()%>/profile">profile
+								<%
+										}
+								%>
 								<li><a title="Logout <%=userLogin.getFullname()%>" href="<%=request.getContextPath()%>/logout">Logout
 								</a></li>
 								<%

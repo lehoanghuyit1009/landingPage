@@ -81,6 +81,15 @@
 		<url-pattern>/admin/category/del</url-pattern>
 	</servlet-mapping>
 	<servlet>
+		<servlet-name>AdminCategorySearchController</servlet-name>
+		<servlet-class>controller.AdminCategorySearchController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdminCategorySearchController</servlet-name>
+		<url-pattern>/admin/category/search</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
 		<servlet-name>AdminNewsIndexController</servlet-name>
 		<servlet-class>controller.AdminNewsIndexController</servlet-class>
 	</servlet>
@@ -169,6 +178,39 @@
 		<url-pattern>/admin/user/del</url-pattern>
 	</servlet-mapping>
 	<servlet>
+		<servlet-name>AdminCommentSearchController</servlet-name>
+		<servlet-class>controller.AdminCommentSearchController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdminCommentSearchController</servlet-name>
+		<url-pattern>/admin/comment/search</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>AdminContactSearchController</servlet-name>
+		<servlet-class>controller.AdminContactSearchController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdminContactSearchController</servlet-name>
+		<url-pattern>/admin/contact/search</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>AdminNewsSearchController</servlet-name>
+		<servlet-class>controller.AdminNewsSearchController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdminNewsSearchController</servlet-name>
+		<url-pattern>/admin/news/search</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>AdminUserSearchController</servlet-name>
+		<servlet-class>controller.AdminUserSearchController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdminUserSearchController</servlet-name>
+		<url-pattern>/admin/user/search</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
 		<servlet-name>PublicIndexController</servlet-name>
 		<servlet-class>controller.PublicIndexController</servlet-class>
 	</servlet>
@@ -215,6 +257,14 @@
 	<servlet-mapping>
 		<servlet-name>PublicProfileController</servlet-name>
 		<url-pattern>/profile</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>PublicAddCommentController</servlet-name>
+		<servlet-class>controller.PublicAddCommentController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PublicAddCommentController</servlet-name>
+		<url-pattern>/comment</url-pattern>
 	</servlet-mapping>
 	<servlet>
 		<servlet-name>AuthLoginController</servlet-name>
