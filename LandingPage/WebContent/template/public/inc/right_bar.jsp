@@ -84,7 +84,7 @@
 						<i class="fa fa-facebook" aria-hidden="true"></i>
 						<p>983 Likes</p>
 					</div>
-					<a href="https://www.facebook.com/itsontran.kom" target="_blank">Like our page</a>
+					<a href="https://www.facebook.com/Blog-l%E1%BA%ADp-tr%C3%ACnh-769940133366459/notifications/" target="_blank">Like our page</a>
 				</li>
 				<li class="d-flex justify-content-between align-items-center tw">
 					<div class="icons d-flex flex-row align-items-center">

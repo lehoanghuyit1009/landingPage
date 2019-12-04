@@ -47,7 +47,6 @@ public class PublicAddCommentController extends HttpServlet {
 		User user = userService.getItemById(idUser);
 		Timestamp dateCreate = new Timestamp(new Date().getTime());
 		Comment comment = new Comment(0, content, idUser, idNews, dateCreate, id_parent, 1);
-		System.out.println(comment.toString());
 		// add comment to db
 		PrintWriter out = response.getWriter();
 		String className = id_parent == 0 ? "" : "left-padding";

@@ -102,6 +102,7 @@
 		                  			%>
 		                  			<tr role="row" class="odd">
 					                    <td class="sorting_1 text-center"><%=item.getId()%></td>
+					                    <td class="text-center"><%=item.getName()%></td>
 					                    <td class="text-center">
 					                    	<%
 					                    		if (!"".equals(item.getPicture())) {
@@ -116,7 +117,6 @@
 					                    	%>
 					                    </td>
 					                    <td class="text-center"><%=item.getLink()%></td>
-					                    <td class="text-center"><%=item.getName()%></td>
 					                    <td class="text-center"><%=item.getSort()%></td>
 										<td class="center text-center" id="active-<%=item.getId()%>">
 												<% if(item.getActive() == 1){ %>
