@@ -62,6 +62,7 @@ public class AdminNewsAddController extends HttpServlet {
 
 		// get filename from part
 		Part part = request.getPart("image");
+		// ten anh
 		String fileName = FileUtil.rename(part.getSubmittedFileName());
 		Category category = categoryService.getItemById(catId);
 		if (category == null) {
@@ -79,6 +80,7 @@ public class AdminNewsAddController extends HttpServlet {
 			// handle upload file if
 			if (!"".equals(fileName)) {
 				String dirPath = request.getServletContext().getRealPath("") + DefineUtil.DIR_UPLOAD;
+				
 				File file = new File(dirPath);
 				if (!file.exists()) {
 					file.mkdir();
