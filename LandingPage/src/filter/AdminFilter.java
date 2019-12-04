@@ -42,25 +42,14 @@ public class AdminFilter implements Filter {
 			int userPermissionId = user.getRole().getId(); /* phân lọa theo theo id như trong database */
 			switch (userPermissionId) {
 			case 3:
-				/* Người dùng bình thường thì không vào được trang amdin */
-				response.sendRedirect(request.getContextPath() + "/");
-				return;
-			case 2:/* Nếu user là editor thì */
 				String uri = request.getRequestURI();
-				/*
-				 * start: tạo ra list các đường dẫn mà editor không được vào để so sảnh với uri
-				 * và chặn lại
-				 */
 				ArrayList<String> notEditorPermissions = new ArrayList<>();
 				String admin = "/admin/";
 				notEditorPermissions.add(admin + "slide");
 				notEditorPermissions.add(admin + "category");
 				notEditorPermissions.add(admin + "contact");
-				/*
-				 * end: tạo ra list các đường dẫn mà editor không được vào để so sảnh với uri và
-				 * chặn lại
-				 */
-				/* Kiểm tra quyền */
+				notEditorPermissions.add(admin + "user");
+
 				boolean check = true;
 				for (String item : notEditorPermissions) {
 					if (uri.contains(item)) {
@@ -70,6 +59,38 @@ public class AdminFilter implements Filter {
 					}
 				}
 				if (check) {
+					chain.doFilter(req, resp);
+				} else {
+					response.sendRedirect(request.getContextPath() + "/");
+					return;
+				}
+				break;
+			case 2:/* Nếu user là editor thì */
+				String uri1 = request.getRequestURI();
+				/*
+				 * start: tạo ra list các đường dẫn mà editor không được vào để so sảnh với uri
+				 * và chặn lại
+				 */
+				ArrayList<String> notEditorPermissions1 = new ArrayList<>();
+				String admin1 = "/admin/";
+				notEditorPermissions1.add(admin1 + "slide");
+				notEditorPermissions1.add(admin1 + "category");
+				notEditorPermissions1.add(admin1 + "contact");
+
+				/*
+				 * end: tạo ra list các đường dẫn mà editor không được vào để so sảnh với uri và
+				 * chặn lại
+				 */
+				/* Kiểm tra quyền */
+				boolean check1 = true;
+				for (String item : notEditorPermissions1) {
+					if (uri1.contains(item)) {
+						System.out.println(uri1.contains(item));
+						check = false;
+						break;
+					}
+				}
+				if (check1) {
 					chain.doFilter(req, resp);
 				} else {
 					response.sendRedirect(request.getContextPath() + "/admin");

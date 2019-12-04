@@ -37,9 +37,9 @@
 											<img class="img-fluid" src="<%=request.getContextPath()%>/files/<%=listSlide.get(i).getPicture()%>" alt="" style="height: 430px;">
 										</div>
 										<div class="top-post-details">
-											<ul class="tags">
+											<!-- <ul class="tags">
 												<li><a href="">Breaking news</a></li>
-											</ul>
+											</ul> -->
 											<a href="<%=listSlide.get(i).getLink()%>">
 												<h4><%=listSlide.get(i).getName()%></h4>
 											</a>

@@ -200,4 +200,46 @@ public class UserDAO {
 		}
 		return null;
 	}
+
+	public int countItems(String name) {
+		conn = DBConnection.getConnection();
+		String sql = "SELECT count(id) as count FROM user WHERE fullname like ? ";
+		try {
+			pst = conn.prepareStatement(sql);
+			pst.setString(1, "%" + name + "%");
+			rs = pst.executeQuery();
+			if (rs.next()) {
+				return rs.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnection.close(rs, pst, conn);
+		}
+		return 0;
+	}
+
+	public ArrayList<User> getListUser(int offset, String name) {
+		ArrayList<User> list = new ArrayList<>();
+		conn = DBConnection.getConnection();
+		String sql = "SELECT u.*,r.* FROM user as u INNER JOIN role as r ON r.id = u.role WHERE fullname like ? ORDER BY u.id DESC LIMIT ?,?";
+		try {
+			pst = conn.prepareStatement(sql);
+			pst.setString(1, "%" + name + "%");
+			pst.setInt(2, offset);
+			pst.setInt(3, DefineUtil.NUMBER_PER_PAGE);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				list.add(new User(rs.getInt("u.id"), rs.getString("username"), rs.getString("fullname"),
+						rs.getString("password"), rs.getString("email"),
+						new Role(rs.getInt("u.role"), rs.getString("name")), rs.getInt("enable")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			DBConnection.close(rs, pst, conn);
+		}
+		return list;
+	}
 }

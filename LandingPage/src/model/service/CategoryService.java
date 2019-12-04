@@ -67,4 +67,12 @@ public class CategoryService {
 		return categoryDAO.getAllListCat();
 	}
 
+	public int countItemsSearch(String name) {
+		return categoryDAO.countItemsSearch(name);
+	}
+
+	public ArrayList<Category> getItemsSearch(String name, int offset) {
+		return categoryDAO.getItemsSearch(name, offset);
+	}
+
 }

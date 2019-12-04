@@ -128,4 +128,46 @@ public class ContactDAO {
 		}
 		return 0;
 	}
+
+	public int countItemsSearch(String name) {
+		int result = 0;
+		conn = DBConnection.getConnection();
+		String sql = "SELECT COUNT(*) as count FROM contact WHERE name like ?";
+		try {
+			pst = conn.prepareStatement(sql);
+			pst.setString(1, "%" + name + "%");
+			rs = pst.executeQuery();
+			if (rs.next()) {
+				result = rs.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnection.close(rs, pst, conn);
+		}
+		return result;
+	}
+
+	public ArrayList<Contact> getItemsSearch(String name, int offset) {
+		ArrayList<Contact> list = new ArrayList<>();
+		conn = DBConnection.getConnection();
+		String sql = "SELECT * FROM contact WHERE name like ? ORDER BY id DESC LIMIT ?,?";
+		try {
+			pst = conn.prepareStatement(sql);
+			pst.setString(1, "%" + name + "%");
+			pst.setInt(2, offset);
+			pst.setInt(3, DefineUtil.NUMBER_PER_PAGE);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				list.add(new Contact(rs.getInt("id"), rs.getString("name"), rs.getString("email"),
+						rs.getString("subject"), rs.getString("content"), rs.getInt("status")));
+			}
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnection.close(rs, pst, conn);
+		}
+		return null;
+	}
 }

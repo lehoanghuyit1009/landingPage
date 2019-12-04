@@ -87,7 +87,7 @@
 	  			accessUsers = false;
 	  			accessCategories = false;
 	  			accessDashboard = false;
-	  			accessNewses = false;
+	  			accessNewses = true;
 	  			accessSlides = false;
 	  			accessContacts = false;
 	  			break;

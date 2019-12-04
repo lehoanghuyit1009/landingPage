@@ -16,8 +16,10 @@ import com.sun.javafx.geom.AreaOp.CAGOp;
 
 import model.bean.Category;
 import model.bean.News;
+import model.bean.User;
 import model.service.CategoryService;
 import model.service.NewsService;
+import util.AuthUtil;
 import util.DefineUtil;
 import util.FileUtil;
 
@@ -43,7 +45,13 @@ public class AdminNewsEditController extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + "/notFound");
 			return;
 		}
-		News news = newsService.getItemById(id);
+		User userLogin = AuthUtil.getUserLogin(request);
+		News news = null;
+		if ("user".equals(userLogin.getRole().getName())) {
+			news = newsService.getItemByIdAndUid(id, userLogin.getId());
+		} else {
+			news = newsService.getItemById(id);
+		}
 		if (news == null) {
 			response.sendRedirect(request.getContextPath() + "/notFound");
 			return;
@@ -65,7 +73,13 @@ public class AdminNewsEditController extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + "/notFound");
 			return;
 		}
-		News news = newsService.getItemById(id);
+		User userLogin = AuthUtil.getUserLogin(request);
+		News news = null;
+		if ("user".equals(userLogin.getRole().getName())) {
+			news = newsService.getItemByIdAndUid(id, userLogin.getId());
+		} else {
+			news = newsService.getItemById(id);
+		}
 		if (news == null) {
 			response.sendRedirect(request.getContextPath() + "/notFound");
 			return;

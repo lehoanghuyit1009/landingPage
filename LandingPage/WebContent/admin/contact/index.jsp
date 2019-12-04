@@ -36,14 +36,14 @@
 	                		%>
                 		</div>
 	                	<div class="col-sm-12 col-md-5">
-	                		<form action="<%=request.getContextPath()%>/admin/contact/search" method="post" class="d-flex input-group" id="search-form">
+	                		<form action="<%=request.getContextPath()%>/admin/contact/search" method="get" class="d-flex input-group" id="search-form">
 	                			<%
 	                				String name = "";
 	                				if (request.getParameter("name") != null) {
 	                					name = request.getParameter("name");
 	                				}
 	                			%>
-					        	<input type="text" class="form-control" value="<%=name%>" name="name" required placeholder="Search slides" aria-label="Search" aria-describedby="basic-addon2" />
+					        	<input type="text" class="form-control" value="<%=name%>" name="name" required placeholder="Search contact" aria-label="Search" aria-describedby="basic-addon2" />
 					          	<div class="input-group-append">
 					            	<button class="btn btn-primary" type="submit">
 						            	<i class="fas fa-search"></i>

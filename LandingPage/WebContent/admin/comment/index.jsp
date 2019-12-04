@@ -45,7 +45,7 @@
 							<div class="col-sm-12 col-md-5">
 								<form
 									action="<%=request.getContextPath()%>/admin/comment/search"
-									method="post" class="d-flex input-group" id="search-form">
+									method="get" class="d-flex input-group" id="search-form">
 									<%
 										String name = "";
 										if (request.getParameter("name") != null) {
@@ -53,7 +53,7 @@
 										}
 									%>
 									<input type="text" class="form-control" value="<%=name%>"
-										name="name" required placeholder="Search comment"
+										name="name"  required placeholder="Search comment"
 										aria-label="Search" aria-describedby="basic-addon2" />
 									<div class="input-group-append">
 										<button class="btn btn-primary" type="submit">

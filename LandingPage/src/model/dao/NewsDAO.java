@@ -389,4 +389,158 @@ public class NewsDAO {
 		}
 	}
 
+	public int countItems(int id) {
+		conn = DBConnection.getConnection();
+		String sql = "SELECT count(*) as count from news WHERE createBy=?";
+		try {
+			pst = conn.prepareStatement(sql);
+			pst.setInt(1, id);
+			rs = pst.executeQuery();
+			if (rs.next()) {
+				return rs.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return 0;
+		} finally {
+			DBConnection.close(rs, pst, conn);
+		}
+		return 0;
+	}
+
+	public ArrayList<News> getListNews(int offset, int id) {
+		conn = DBConnection.getConnection();
+		ArrayList<News> list = new ArrayList<>();
+		String sql = "SELECT c.*,n.* FROM news as n INNER JOIN category as c on n.cid = c.id WHERE createBy=? ORDER BY n.id DESC LIMIT ?,?";
+		try {
+			pst = conn.prepareStatement(sql);
+			pst.setInt(1, id);
+			pst.setInt(2, offset);
+			pst.setInt(3, DefineUtil.NUMBER_PER_PAGE);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				list.add(new News(rs.getInt("n.id"), rs.getString("n.name"), rs.getString("description"),
+						rs.getString("detail"), rs.getString("address"), rs.getString("picture"), rs.getInt("view"),
+						rs.getDouble("cost"), rs.getTimestamp("dateCreate"),
+						new Category(rs.getInt("c.id"), rs.getString("c.name")), rs.getDouble("area"),
+						rs.getInt("createBy")));
+			}
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			DBConnection.close(rs, pst, conn);
+		}
+	}
+
+	public News getItemByIdAndUid(int id, int uid) {
+		conn = DBConnection.getConnection();
+		String sql = "SELECT c.*,n.* FROM news as n INNER JOIN category as c on n.cid = c.id WHERE n.id=? AND createBy=?";
+		try {
+			pst = conn.prepareStatement(sql);
+			pst.setInt(1, id);
+			pst.setInt(2, uid);
+			rs = pst.executeQuery();
+			if (rs.next()) {
+				return new News(rs.getInt("n.id"), rs.getString("n.name"), rs.getString("description"),
+						rs.getString("detail"), rs.getString("address"), rs.getString("picture"), rs.getInt("view"),
+						rs.getDouble("cost"), rs.getTimestamp("dateCreate"),
+						new Category(rs.getInt("c.id"), rs.getString("c.name")), rs.getDouble("area"),
+						rs.getInt("createBy"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			DBConnection.close(rs, pst, conn);
+		}
+		return null;
+	}
+
+
+	public ArrayList<News> getListNews(int offset, int id, String name) {
+		conn = DBConnection.getConnection();
+		ArrayList<News> list = new ArrayList<>();
+		String sql = "SELECT c.*,n.* FROM news as n INNER JOIN category as c on n.cid = c.id WHERE createBy=? AND n.name like ORDER BY n.id DESC LIMIT ?,?";
+		try {
+			pst = conn.prepareStatement(sql);
+			pst.setInt(1, id);
+			pst.setString(2, "%" + name + "%");
+			pst.setInt(3, offset);
+			pst.setInt(4, DefineUtil.NUMBER_PER_PAGE);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				list.add(new News(rs.getInt("n.id"), rs.getString("n.name"), rs.getString("description"),
+						rs.getString("detail"), rs.getString("address"), rs.getString("picture"), rs.getInt("view"),
+						rs.getDouble("cost"), rs.getTimestamp("dateCreate"),
+						new Category(rs.getInt("c.id"), rs.getString("c.name")), rs.getDouble("area"),
+						rs.getInt("createBy")));
+			}
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			DBConnection.close(rs, pst, conn);
+		}
+	}
+
+	public int countItems(int id, String name) {
+		conn = DBConnection.getConnection();
+		String sql = "SELECT count(*) as count from news WHERE name like =? AND createBy =?";
+		try {
+			pst = conn.prepareStatement(sql);
+			pst.setString(1, "%" + name + "%");
+			pst.setInt(2, id);
+			rs = pst.executeQuery();
+			if (rs.next()) {
+				return rs.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnection.close(rs, st, conn);
+		}
+		return 0;
+	}
+
+	public ArrayList<News> getListNewsSearch(int offset, String name) {
+		conn = DBConnection.getConnection();
+		ArrayList<News> list = new ArrayList<>();
+		String sql = "SELECT c.*,n.* FROM news as n INNER JOIN category as c on n.cid = c.id WHERE n.name like ? ORDER BY n.id DESC LIMIT ?,?";
+		try {
+			pst = conn.prepareStatement(sql);
+			pst.setString(1, "%" + name + "%");
+			pst.setInt(2, offset);
+			pst.setInt(3, DefineUtil.NUMBER_PER_PAGE);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				list.add(new News(rs.getInt("n.id"), rs.getString("n.name"), rs.getString("description"),
+						rs.getString("detail"), rs.getString("address"), rs.getString("picture"), rs.getInt("view"),
+						rs.getDouble("cost"), rs.getTimestamp("dateCreate"),
+						new Category(rs.getInt("c.id"), rs.getString("c.name")), rs.getDouble("area"),
+						rs.getInt("createBy")));
+			}
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			DBConnection.close(rs, pst, conn);
+		}
+	}
+
 }

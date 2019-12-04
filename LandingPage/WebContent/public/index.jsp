@@ -14,7 +14,7 @@
 <%@ include file="/template/public/inc/header.jsp" %>
 		<div class="site-main-container">
 		
-			<%-- <%@ include file="/template/public/inc/slide.jsp" %> --%>
+			<%@ include file="/template/public/inc/slide.jsp" %>
 			<!-- Start latest-post Area -->
 			<section class="latest-post-area pb-120">
 				<div class="container no-padding">

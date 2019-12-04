@@ -10,9 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.bean.Category;
 import model.bean.News;
+import model.bean.User;
 import model.dao.CategoryDAO;
 import model.service.CategoryService;
 import model.service.NewsService;
+import util.AuthUtil;
 
 public class AdminNewsDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -33,7 +35,14 @@ public class AdminNewsDeleteController extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + "/notFound");
 			return;
 		}
-		News news = newsService.getItemById(id);
+		User userLogin = AuthUtil.getUserLogin(request);
+		News news = null;
+		if ("user".equals(userLogin.getRole().getName())) {
+			news = newsService.getItemByIdAndUid(id, userLogin.getId());
+		} else {
+			news = newsService.getItemById(id);
+		}
+
 		if (news == null) {
 			response.sendRedirect(request.getContextPath() + "/notFound");
 			return;
