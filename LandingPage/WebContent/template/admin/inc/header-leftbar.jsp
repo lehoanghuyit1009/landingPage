@@ -14,16 +14,16 @@
     <!-- Favicon-->
 	<link rel="shortcut icon" href="<%=request.getContextPath()%>/template/public/img/favicon.ico">
     <!-- Bootstrap core CSS-->
-    <link href="<%=request.getContextPath()%>/template/admin/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<%=request.getContextPath()%>/template/admin/vendor/bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet">
     <!-- Custom fonts for this template-->
-    <link href="<%=request.getContextPath()%>/template/admin/css/style.css" rel="stylesheet">
-    <link href="<%=request.getContextPath()%>/template/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="<%=request.getContextPath()%>/template/admin/css/style.css"  type="text/css" rel="stylesheet">
+    <link href="<%=request.getContextPath()%>/template/admin/vendor/fontawesome-free/css/all.min.css"  type="text/css" rel="stylesheet" type="text/css">
 
     <!-- Page level plugin CSS-->
-    <link href="<%=request.getContextPath()%>/template/admin/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+    <link href="<%=request.getContextPath()%>/template/admin/vendor/datatables/dataTables.bootstrap4.css"  type="text/css" rel="stylesheet">
 	
     <!-- Custom styles for this template-->
-    <link href="<%=request.getContextPath()%>/template/admin/css/sb-admin.css" rel="stylesheet">
+    <link href="<%=request.getContextPath()%>/template/admin/css/sb-admin.css"  type="text/css" rel="stylesheet">
   </head>
   <body id="page-top">
 

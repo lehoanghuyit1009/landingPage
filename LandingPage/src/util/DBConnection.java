@@ -10,9 +10,10 @@ import java.sql.Statement;
 public class DBConnection {
 	private static String url = "jdbc:mysql://localhost:3306/landingpage?useUnicode=true&characterEncoding=UTF-8";
 	private static String user = "root";
-	private static String password = "";
+	private static String password = "Thanh144";
 	private static Connection connection = null;
-
+	// cai user m dat là root mà sao lai đẻ Nhi Le
+	
 	public static Connection getConnection() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");

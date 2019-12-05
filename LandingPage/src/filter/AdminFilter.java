@@ -17,26 +17,20 @@ import util.AuthUtil;
 
 public class AdminFilter implements Filter {
 
-	public AdminFilter() {
-	}
+	public AdminFilter() {}
 
-	public void destroy() {
-	}
+	public void destroy() {}
 
 	// admin/*
 	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)
 			throws IOException, ServletException {
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) resp;
-
-		/*
-		 * Login before go to admin page. url-pattern: admin/*
-		 */
+		/* Login before go to admin page. url-pattern: admin/*/
 		if (!AuthUtil.checkDoneLogin(request)) {
 			response.sendRedirect(request.getContextPath() + "/login");
 			return;
 		} else {
-
 			/* Phân lọai user vào trang amdin */
 			User user = AuthUtil.getUserLogin(request);
 			int userPermissionId = user.getRole().getId(); /* phân lọa theo theo id như trong database */
@@ -83,7 +77,6 @@ public class AdminFilter implements Filter {
 				break;
 			}
 		}
-		// chain.doFilter(req, resp);
 	}
 
 	public void init(FilterConfig fConfig) throws ServletException {
