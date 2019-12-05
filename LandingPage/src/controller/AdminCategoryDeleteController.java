@@ -30,35 +30,18 @@ public class AdminCategoryDeleteController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		
-		int currentPage = 1;
-		try {
-			currentPage = Integer.parseInt(request.getParameter("page"));
-		} catch (NumberFormatException e) {
-		}
 
-		int id = 0;
-		try {
-			id = Integer.parseInt(request.getParameter("id"));
-		} catch (NumberFormatException e) {
-			response.sendRedirect(request.getContextPath() + "/admin/category/index?msg=0&page=" + currentPage);
-			return;
-		}
-		if (categoryDAO.deleteParentItemAndSubItems(id) > 0) {
-			//duyệt qua tất cả bài hát trong danh mục này và xóa những comment của nó
+		int id =0;
+		id = Integer.parseInt(request.getParameter("id"));
+		if(categoryDAO.delete( id) > 0) {
+			categoryDAO.deleteNewsByCid(id);
+			response.sendRedirect(request.getContextPath() + "/admin/category/index?msg=1");
 			
-			ArrayList<News> list = categoryDAO.getItemsByCatId(id);
-			for (News item : list) {
-				categoryDAO.deleteItemByNewsId(item.getId());
-			}
-			//xóa những bài hát thuộc danh mục này
-			categoryDAO.deleteItemByCatId(id);
-			
-			response.sendRedirect(request.getContextPath() + "/admin/category/delete?msg=1");
-			return;
-		} else {
-			response.sendRedirect(request.getContextPath() + "/admin/category/delete?msg=0" + currentPage);
-			return;
+		}else {
+			response.sendRedirect(request.getContextPath() + "/admin/category/index?msg=0");
+
 		}
+		
 	}
 
 	

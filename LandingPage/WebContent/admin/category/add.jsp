@@ -13,7 +13,7 @@
               <a href="<%=request.getContextPath()%>/admin">Dashboard</a>
             </li>
             <li class="breadcrumb-item">
-              <a href="<%=request.getContextPath()%>/admin/categories">Categories</a>
+              <a href="<%=request.getContextPath()%>/admin/category/index">Category</a>
             </li>
             <li class="breadcrumb-item active">Add</li>
           </ol>

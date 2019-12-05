@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.bean.Category;
 import model.dao.CategoryDAO;
 
 
@@ -25,6 +26,8 @@ public class AdminCategoryEditController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		id = Integer.parseInt(request.getParameter("id"));
+		Category category = categoryDAO.getItem(id);
+		request.setAttribute("category", category);
 		RequestDispatcher rDispatcher = request.getRequestDispatcher("/admin/category/edit.jsp");
 		rDispatcher.forward(request, response);
 	
@@ -32,6 +35,9 @@ public class AdminCategoryEditController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html");
 		String name = request.getParameter("name");
 		
 		if(categoryDAO.update(name, id) > 0) {

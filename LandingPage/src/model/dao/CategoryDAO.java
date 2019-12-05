@@ -158,7 +158,7 @@ public class CategoryDAO {
 			pst.setInt(1, id);
 			rs = pst.executeQuery();
 			if (rs.next()) {
-				category = new Category(rs.getInt("id"), rs.getString("name"), rs.getInt("parent_id"));
+				category = new Category(rs.getInt("id"), rs.getString("name"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -168,15 +168,7 @@ public class CategoryDAO {
 		return category;
 	}
 	
-	public int deleteParentItemAndSubItems(int parentId) {
-		int result = 0;
-		ArrayList<Category> listCategories = this.getItemsByParentId(parentId);
-		for (Category category : listCategories) {
-			result += this.deleteParentItemAndSubItems(category.getId());
-		}
-		result += this.delItem(parentId);
-		return result;
-	}
+	
 	
 	private int delItem(int id) {
 		int result = 0;
@@ -217,26 +209,36 @@ public class CategoryDAO {
 		return listNewses;
 	}
 	
-	public int deleteItemByCatId(int id) {
-		int result = 0;
+	
+	
+	
+
+	public int delete(int id) {
 		conn = DBConnection.getConnection();
-		String sql = "DELETE FROM news WHERE category = ?";
+		String sql = "DELETE FROM category WHERE id=?";
+		//;DELETE FROM news WHERE cid = ?;
+		int result = 0;
 		try {
 			pst = conn.prepareStatement(sql);
+			
 			pst.setInt(1, id);
+			//pst.setInt(2, id);
 			result = pst.executeUpdate();
+
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			DBConnection.close(pst, conn);
 		}
 		return result;
+		
 	}
 	
-	public int deleteItemByNewsId(int id) {
+	public int deleteNewsByCid(int id) {
 		int result = 0;
 		conn = DBConnection.getConnection();
-		String sql = "DELETE FROM comment WHERE news_id = ?";
+		String sql = "DELETE FROM news WHERE cid = ?";
 		try {
 			pst = conn.prepareStatement(sql);
 			pst.setInt(1, id);
@@ -248,6 +250,52 @@ public class CategoryDAO {
 		}
 		return result;
 	}
+
+	public int countSearchItems(String name) {
+		Category category =null;
+		int result = 0;
+		conn = DBConnection.getConnection();
+		String sql = "SELECT COUNT(*) AS count FROM category WHERE name LIKE ?";
+		try {
+			
+			pst = conn.prepareStatement(sql);
+			pst.setString(1, "%" + name + "%");
+			rs = pst.executeQuery();
+			
+			
+			if (rs.next()) {
+				result = rs.getInt("count");
+				category = new Category(rs.getInt("id"), rs.getString("name"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnection.close(rs, pst, conn);
+		}
+		return result;
+	}
+
+	public ArrayList<Category> getListSearchCategory(int offset,String name) {
+		ArrayList<Category> listCat = new ArrayList<>();
+		conn = DBConnection.getConnection();
+		String sql = "SELECT * FROM category WHERE name LIKE ?  LIMIT ?, ?";
+		try {
+			pst = conn.prepareStatement(sql);
+			pst.setString(1, "%" + name + "%");
+			pst.setInt(2, offset);
+			pst.setInt(3, DefineUtil.NUMBER_PER_PAGE);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				listCat.add(new Category(rs.getInt("id"), rs.getString("name")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnection.close(rs, pst, conn);
+		}
+		return listCat;
+	}
+
 	
 
 }

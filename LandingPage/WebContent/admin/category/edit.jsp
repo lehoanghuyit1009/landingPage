@@ -13,7 +13,7 @@
               <a href="<%=request.getContextPath()%>/admin">Dashboard</a>
             </li>
             <li class="breadcrumb-item">
-              <a href="<%=request.getContextPath()%>/admin/categories">Categories</a>
+              <a href="<%=request.getContextPath()%>/admin/category/index">Category</a>
             </li>
             <li class="breadcrumb-item active">Edit</li>
           </ol>
@@ -43,6 +43,7 @@
 	                if (cat != null) {
 	                	idcat= cat.getParentCategoryId();
 	                	name = cat.getName();
+	                	System.out.println(name);
 	                }
 	                
 	              %>
